@@ -1,0 +1,558 @@
+@font-face {
+    font-family: 'Monserrat Regular';
+    src: url('../font/Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Monserrat Bold';
+    src: url('../font/Montserrat-Bold.ttf');
+}
+
+body {
+    font-family: 'Monserrat Regular';
+}
+
+.bg-light {
+    background-color: #fff !important;
+}
+
+.list-group-item-action {
+    font-family: 'Monserrat Bold' !important;
+    color: #636363;
+}
+
+.list-group-item {
+    padding-left: 55px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border: none;
+}
+
+.icon-sidebar {
+    width: 19px;
+    margin-right: 10px;
+}
+
+.hr-side {
+    margin: 0;
+}
+
+.navbar {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.nav-link {
+    font-size: 10pt;
+    transition: 0.7s ease !important;
+}
+
+.nav-item {
+    padding-right: 30px;
+}
+
+.nav-link:hover {
+    font-family: 'Monserrat Bold' !important;
+    color: #303030;
+}
+
+.container {
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.judul2 h3 {
+    font-family: 'Monserrat Bold';
+    font-size: 25px;
+    color: #636363;
+}
+
+.judul p {
+    font-size: 14px;
+    color: #636363;
+}
+
+.text-profile h5 {
+    font-family: 'Monserrat Bold';
+    color: #636363;
+    font-size: 18px;
+}
+
+.text-profile p {
+    color: #636363;
+    font-size: 15px;
+}
+
+.biodata {
+    margin-top: 10px;
+}
+
+.card-calendar {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.month {
+    font-size: 22px;
+    font-family: 'Monserrat Bold';
+    color: #636363;
+}
+
+.card-header span {
+    font-family: 'Monserrat Bold';
+    color: #636363;
+}
+
+.card-header {
+    background-color: #fff !important;
+}
+
+.content-siswa-o p {
+    font-family: 'Monserrat Bold';
+    color: #F69014;
+    margin-bottom: 0;
+    font-size: 17px;
+}
+
+.content-siswa-o h1 {
+    font-family: 'Monserrat Bold';
+    color: #F69014;
+    margin-bottom: 0;
+}
+
+.content-materi h4 {
+    font-family: 'Monserrat Bold';
+    color: #F69014;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.content-materi {
+    background-color: #f6901462;
+    padding-top: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 60px;
+}
+
+.card-materi {
+    padding: 0 !important;
+}
+
+.today {
+    background-color: #F69014 !important;
+}
+
+.calendar .day:hover {
+    border: 2px solid #F69014 !important;
+}
+
+
+.content-section5 {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.header-jadwal h1 {
+    font-family: 'Monserrat Bold';
+    color: #F69014;
+    margin-bottom: 5px;
+    font-size: 45px;
+}
+
+.header-jadwal p {
+    color: #303030;
+    font-size: 20px;
+}
+
+.header-jadwal {
+
+    width: 450px;
+}
+
+.btn-filter {
+    border-radius: 16px !important;
+    font-family: 'Monserrat Bold';
+    color: #303030 !important;
+    background-color: white !important;
+    border: 1px solid #a5a5a5 !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    font-size: 18px !important;
+}
+
+.btn-next-j {
+    border-radius: 16px !important;
+    font-family: 'Monserrat Bold';
+    color: #303030 !important;
+    background-color: white !important;
+    border: 1px solid #a5a5a5 !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    font-size: 18px !important;
+    float: right;
+}
+
+.btn-jadwal {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+
+.card-h-custom {
+    padding-left: 65px !important;
+    padding-right: 65px !important;
+    padding-top: 20px !important;
+    width: 100%;
+    white-space: nowrap;
+    position: relative;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding-bottom: 20px !important;
+    background-color: white !important;
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+}
+
+.card-h-custom ul {
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.card-h-custom li {
+    display: inline;
+    font-family: 'Monserrat Bold';
+    font-size: 18px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.li-left {
+    padding-left: 74px;
+    transition: 0.7s ease !important;
+}
+
+.li-left:hover {
+    color: #F69014;
+}
+
+.active-j {
+    color: #F69014;
+}
+
+.card-custom {
+    border-radius: 16px !important;
+    border: none !important;
+}
+
+.card-b-custom {
+    padding-left: 65px !important;
+    padding-right: 65px !important;
+    padding-top: 20 !important;
+    padding-bottom: 60px !important;
+
+}
+
+.box-jadwal {
+    width: 300px;
+    height: auto;
+    background-color: white;
+    border: 2px solid #a5a5a5;
+    border-radius: 16px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 50px;
+    transition: 0.7s, transform 0.7s;
+}
+
+.box-jadwal:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.20);
+    border: 2px solid white;
+}
+
+.box-tag {
+    width: 80px;
+    height: 30px;
+    border: 1px solid #D6D5D4;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.judul h3 {
+    color: #F69014;
+    font-family: 'Monserrat Bold';
+}
+
+.judul {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.detail-jadwal h5 {
+    font-family: 'Monserrat Bold';
+    color: #303030;
+
+}
+
+.detail-jadwal p {
+    color: #303030;
+    font-size: 17px;
+}
+
+.jadwal-kelas h5 {
+    font-family: 'Monserrat Bold';
+    color: #636363;
+}
+
+.card-custom {
+    border-radius: 16px !important;
+}
+
+.body-chat {
+    width: 100%;
+
+}
+
+.chat-boxs {
+    width: 100%;
+    height: 350px;
+    overflow-y: scroll;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.sender {
+    display: inline-flex;
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.receiver {
+    display: inline-flex;
+    float: right;
+    margin-top: 20px;
+}
+
+.box-chat-isi p {
+    font-size: 10px;
+    font-family: 'Monserrat Bold';
+    color: #636363;
+    margin-bottom: 10px;
+}
+
+.box-chat-isi {
+    margin-left: 15px;
+}
+
+.card-body-custom {
+    padding: 0;
+}
+
+.box-chat-isi2 p {
+    font-size: 10px;
+    font-family: 'Monserrat Bold';
+    color: #636363;
+    margin-bottom: 10px;
+}
+
+.box-chat-isi2 {
+    margin-right: 15px;
+}
+
+
+/* .kerucut {
+    width: 20px;
+    height: 20px;
+    background-color: #F69014;
+    position: relative;
+}
+
+.kerucut2 {
+    width: 20px;
+    height: 20px;
+    background-color: #F69014;
+    position: relative;
+    right: 100px;
+} */
+
+.chat-box {
+    width: 100%;
+    height: auto;
+    background-color: #F69014;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 16px;
+    font-family: 'Monserrat Bold';
+    font-size: 14px;
+
+}
+
+.card-diskusi {
+    border-radius: 16px !important;
+}
+
+.card-diskusi-header {
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+}
+
+.form-chat-cus {
+    height: 70px;
+    border-radius: 16px;
+    font-family: 'Monserrat Bold';
+    font-size: 13px;
+    padding-left: 20px;
+    color: #636363;
+    margin-top: 10px;
+}
+
+.form-chat-cus:focus {
+    box-shadow: inset 0 -1px 0 #ddd;
+    border: 1px solid #F69014;
+}
+
+.form-pertemuan label {
+    font-family: 'Monserrat Bold';
+    color: #636363;
+    font-size: 13px;
+}
+
+.input-pertemuan {
+    border-radius: 10px;
+    font-family: 'Monserrat Regular';
+    color: #636363;
+    font-size: 15px;
+}
+
+.input-pertemuan:focus {
+    box-shadow: inset 0 -1px 0 #ddd;
+    border: 1px solid #F69014;
+}
+
+.content-thumb {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.content-thumb h5 {
+    font-family: 'Monserrat Bold';
+    color: #F69014;
+    margin-top: 10px;
+}
+
+.card-thumb {
+    background-color: #f6901462;
+}
+
+.btn-jadwal {
+    background-color: #F69014;
+    font-family: 'Monserrat Bold';
+    color: white;
+    font-size: 18px;
+    padding-top: 8px;
+    border-radius: 8px;
+    padding-bottom: 8px;
+}
+
+.btn-jadwal:hover {
+    background-color: #F69014;
+    font-family: 'Monserrat Bold';
+    color: white;
+    font-size: 18px;
+}
+
+.calendar .event-container .event {
+    background-color: #F69014 !important;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    >.col,
+    >[class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+
+.sidelogin {
+    background: rgb(246, 144, 20);
+    background: linear-gradient(3deg, rgba(246, 144, 20, 1) 24%, rgba(255, 65, 91, 1) 97%);
+    width: 100%;
+    height: 100vh;
+}
+
+.login-box h5 {
+    color: #636363;
+    font-family: 'Monserrat Bold';
+}
+
+.login-box {
+    width: 100%;
+    max-width: 60%;
+    margin: 150px auto;
+}
+
+.input-login {
+    border: 2px solid #636363;
+    border-radius: 10px;
+    font-size: 15px;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+.input-login:focus {
+    box-shadow: inset 0 -1px 0 #ddd;
+    border: 2px solid #F69014;
+}
+
+.btn-block {
+    background: rgb(246, 144, 20);
+    background: linear-gradient(83deg, rgba(246, 144, 20, 1) 27%, rgba(255, 65, 91, 1) 96%);
+    color: white;
+    font-family: 'Monserrat Bold';
+    border-radius: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: none;
+}
+
+.text-add span {
+    font-size: 15px;
+    color: #636363;
+}
+
+.text-add a {
+    font-size: 15px;
+    font-family: 'Monserrat Bold';
+    color: #636363;
+}
+
+.img-hexa {
+    position: absolute;
+    right: 0;
+}
+
+
+@media screen and (max-width: 425px) {
+    .container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
