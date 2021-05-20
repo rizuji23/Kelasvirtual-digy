@@ -23,7 +23,9 @@ var adminRouter = require('./routes/admin');
 var adminModels = require('./models/adminModels');
 
 app.use(express.static('public'));
-
+app.use(bodyParser({
+    defer: true
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -39,6 +41,7 @@ app.use(session({
         maxAge: 60000
     }
 }));
+
 
 app.use(flash());
 app.use(expressValidator());

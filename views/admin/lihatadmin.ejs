@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin | Digyhomeschooling</title>
+    <title>Lihat Admin | Digyhomeschooling</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 </head>
@@ -20,6 +20,9 @@
         <div class="collapse navbar-collapse " id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
+                    <a class="nav-link" href="dashboard.html">Tambah Siswa</a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" href="lihatadmin.html">Lihat Admin</a>
                 </li>
                 <li class="nav-item active">
@@ -30,39 +33,41 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="judul-dashboard">
-            <h2>Digy HomeSchooling Zoom Class account</h2>
+        <div class="row">
+            <div class="col-sm">
+                <div class="judul-dashboard">
+                    <h2>Lihat Admin</h2>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="cont-btn">
+                    <a href="tambahadmin.html" class="btn btn-orange btn-warning">Tambah Admin</a>
+                </div>
+
+            </div>
         </div>
-        <% if (messages.success) { %>
-        <div class="alert alert-success" role="alert">
-            <%- messages.success %>
-        </div>
-        <% } %>
+
+
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">ID Siswa</th>
-                        <th scope="col">No Wa</th>
-                        <th scope="col">Kelas</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
                         <td>@mdo</td>
                         <td>Mark</td>
                         <td>Otto</td>
                         <td>
-                            <div class="success-siswa">
-                                <span>Sukses</span>
-                            </div>
+                            <a href="#" class="btn btn-primary">Edit</a>
+                            <a href="#" class="btn btn-danger">Hapus</a>
                         </td>
 
                     </tr>
@@ -73,9 +78,7 @@
 
     </div>
 
-    <div class="uploadcsv">
-        <img src="../assets/img/icon-upload.png" data-toggle="modal" data-target="#exampleModal" width="70" alt="">
-    </div>
+
 
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -88,20 +91,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/upload" method="POST" enctype="multipart/form-data">
-                        <div class="tambahcsv text-center">
-                            <label class="btn-file" for="filecsv">
-                                <img src="../assets/img/icon-tambahcsv.png" width="150" class="img-fluid" alt="">
-                            </label>
-                            <input type="file" id="filecsv" name="filecsv" class="filecsv">
-                        </div>
-                        <div class="namafile">
-                            <h3 class="namefiles">Nama file</h3>
-                        </div>
-                        <div class="form-group ">
-                            <input type="submit" value="Upload" class="btn-upload btn-block">
-                        </div>
-                    </form>
+                    <div class="tambahcsv text-center">
+                        <img src="../assets/img/icon-tambahcsv.png" width="150" class="img-fluid" alt="">
+                    </div>
+                    <div class="namafile">
+                        <h3>Nama file</h3>
+                    </div>
+                    <div class="form-group mx-auto">
+                        <label class="btn-file" for="filecsv">
+                            <span>Upload</span>
+                        </label>
+                        <input type="file" id="filecsv" class="filecsv">
+                    </div>
                 </div>
             </div>
         </div>

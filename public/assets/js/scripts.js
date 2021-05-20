@@ -22,3 +22,9 @@ $(function () {
 })
 
 console.log(new Date(new Date().setHours(new Date().getHours() - new Date().getHours() - 11)).getTime())
+
+$('#filecsv').change(function () {
+    var filename = $('#filecsv').val().replace(/.*(\/|\\)/, '');
+    $('.namefiles').text(filename)
+
+})

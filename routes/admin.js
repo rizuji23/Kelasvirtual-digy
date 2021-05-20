@@ -5,6 +5,7 @@ var fs = require('fs-extra');
 var cookieSession = require('cookie-session');
 var bcrypt = require('bcrypt');
 var koneksi = require('../models/connect');
+var fastcsv = require('fast-csv');
 
 const {
     route,
@@ -52,42 +53,61 @@ router.get('/logout', function (req, res, next) {
 })
 
 router.post('/upload', function (req, res, next) {
-    // var fstream;
-    // req.pipe(req.busboy);
-    // req.busboy.on('file', function (fieldname, file, filename) {
-    //     console.log("Uploading: " + filename);
-
-    //     //Path where image will be uploaded
-    //     fstream = fs.createWriteStream(__dirname + '/data_siswa/' + filename);
-    //     file.pipe(fstream);
-    //     fstream.on('close', function () {
-    //         console.log("Upload Finished of " + filename);
-    //         res.redirect('back'); //where to go next
-    //     });
-    // });
-
     var form = new formidable.IncomingForm();
     form.uploadDir = "./data_siswa";
     form.keepExtensions = true;
 
     form.parse(req, function (err, fields, files) {
-        res.writeHead(200, {
-            'content-type': 'text/plain'
-        });
-        res.write('received upload:\n\n');
+        // res.writeHead(200, {
+        //     'content-type': 'text/plain'
+        // });
         console.log("form.bytesReceived");
-        console.log("file size: " + JSON.stringify(files.fileUploaded.size));
-        console.log("file path: " + JSON.stringify(files.fileUploaded.path));
-        console.log("file name: " + JSON.stringify(files.fileUploaded.name));
-        console.log("file type: " + JSON.stringify(files.fileUploaded.type));
-        console.log("astModifiedDate: " + JSON.stringify(files.fileUploaded.lastModifiedDate));
+        console.log("file size: " + JSON.stringify(files.filecsv.size));
+        console.log("file path: " + JSON.stringify(files.filecsv.path));
+        console.log("file name: " + JSON.stringify(files.filecsv.name));
+        console.log("file type: " + JSON.stringify(files.filecsv.type));
+        console.log("astModifiedDate: " + JSON.stringify(files.filecsv.lastModifiedDate));
 
-        fs.rename(files.fileUploaded.path, './data_siswa/' + files.fileUploaded.name, function (err) {
+        fs.rename(files.filecsv.path, './data_siswa/' + files.filecsv.name, function (err) {
             if (err)
                 throw err;
             console.log('renamed complete');
         });
+
+        let stream = fs.createReadStream('./data_siswa/' + files.filecsv.name);
+
+        let csvData = [];
+        let csvStream = fastcsv.parse().on("data", function (data) {
+            csvData.push(data);
+        }).on("end", function () {
+            csvData.shift();
+
+            koneksi.query("INSERT INTO siswa (nama, email, password, id_siswa, no_wa, kelas, tanggal) VALUES ?", [csvData]);
+
+            console.log(csvData);
+        })
+        stream.pipe(csvStream);
         res.end();
     });
+    req.flash('success', 'File Sudah Diupload');
+    res.redirect('/admin/dashboard');
 });
+
+router.get('/testcsv', function (req, res, next) {
+    let stream = fs.createReadStream('./data_siswa/test.csv');
+    let csvData = [];
+    let csvStream = fastcsv
+        .parse()
+        .on("data", function (data) {
+            csvData.push(data);
+        })
+        .on("end", function () {
+            // remove the first line: header
+            csvData.shift();
+            console.log(csvData);
+        });
+    console.log(csvData);
+    stream.pipe(csvStream);
+})
+
 module.exports = router;

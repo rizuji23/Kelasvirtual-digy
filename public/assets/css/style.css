@@ -9,7 +9,8 @@
 }
 
 body {
-    font-family: 'Monserrat Regular';
+    font-family: 'Monserrat Regular' !important;
+    scroll-behavior: smooth;
 }
 
 .bg-light {
@@ -46,11 +47,22 @@ body {
 
 .nav-link {
     font-size: 10pt;
-    transition: 0.7s ease !important;
+    transition: 0.7s ease-in-out !important;
 }
 
 .nav-item {
     padding-right: 30px;
+}
+
+.dropdown-item {
+    font-size: 14px;
+    transition: 0.7s !important;
+}
+
+.nav-item .dropdown-item:hover {
+    color: white !important;
+    background-color: #F69014;
+    font-family: 'Monserrat Bold';
 }
 
 .nav-link:hover {
@@ -135,6 +147,15 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 60px;
+    border: 1px solid #F69014;
+    transition: 0.7s, transform 0.7s;
+}
+
+.content-materi:hover {
+    transform: scale(1.04);
+    background-color: white;
+    border: 1px solid white;
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.20);
 }
 
 .card-materi {
@@ -143,6 +164,12 @@ body {
 
 .today {
     background-color: #F69014 !important;
+    transition: 0.7s;
+}
+
+.today:hover {
+    color: #303030 !important;
+    background-color: white !important;
 }
 
 .calendar .day:hover {
@@ -456,6 +483,15 @@ body {
 
 .card-thumb {
     background-color: #f6901462;
+    border: 1px solid #F69014;
+    transition: 0.7s, transform 0.7s;
+}
+
+.card-thumb:hover {
+    transform: scale(1.04);
+    background-color: white;
+    border: 1px solid white;
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.20);
 }
 
 .btn-jadwal {
@@ -531,6 +567,12 @@ body {
     padding-top: 8px;
     padding-bottom: 8px;
     border: none;
+    transition: 0.7s;
+}
+
+.btn-block:hover {
+    background: rgb(246, 144, 20);
+    color: white;
 }
 
 .text-add span {
@@ -542,6 +584,12 @@ body {
     font-size: 15px;
     font-family: 'Monserrat Bold';
     color: #636363;
+    transition: 0.7s;
+}
+
+.text-add a:hover {
+    text-decoration: none;
+    color: #F69014;
 }
 
 .img-hexa {
@@ -549,6 +597,104 @@ body {
     right: 0;
 }
 
+
+.judul-dashboard {
+    margin-top: 50px;
+    font-family: 'Monserrat Bold';
+    color: #636363;
+    padding-left: 40px;
+    margin-bottom: 30px;
+}
+
+.table th {
+    font-size: 14px !important;
+}
+
+.table thead {
+    background-color: #a5a5a5 !important;
+}
+
+.table td {
+    font-size: 14px;
+}
+
+.success-siswa {
+    width: 50%;
+    height: auto;
+    background-color: #F69014;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.success-siswa span {
+    color: white;
+    font-size: 13px;
+}
+
+.uploadcsv {
+
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.modal-content {
+    border-radius: 16px !important;
+}
+
+.namafile {
+    text-align: center;
+    font-family: 'Monserrat Bold';
+    color: #a5a5a5;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.modal-header {
+    border-bottom: none !important;
+}
+
+.filecsv {
+    display: none;
+}
+
+.btn-upload {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    background-color: #F69014;
+    border: none;
+    color: white;
+    font-family: 'Monserrat Bold';
+    display: block;
+    text-align: center;
+}
+
+.btn-file {
+    cursor: pointer;
+}
+
+.btn-orange {
+    background-color: #F69014 !important;
+    color: white !important;
+    border: none !important;
+    font-family: 'Monserrat Bold' !important;
+
+}
+
+.cont-btn {
+    margin-top: 50px;
+    float: right;
+}
+
+.modal-body {
+    word-wrap: break-word !important;
+}
 
 @media screen and (max-width: 425px) {
     .container {
