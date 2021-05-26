@@ -54,7 +54,6 @@
                         <th scope="col">Email</th>
                         <th scope="col">ID Guru</th>
                         <th scope="col">No Wa</th>
-                        <th scope="col">Mapel</th>
                         <th scope="col">Opsi</th>
                     </tr>
                 </thead>
@@ -69,6 +68,37 @@
     <div class="uploadcsv">
         <a href="/admin/tambahguru"><img src="../assets/img/icon-upload.png" data-toggle="modal"
                 data-target="#exampleModal" width="70" alt=""></a>
+    </div>
+
+    <div class="modal fade" id="detailguru" tabindex="-1" role="dialog" aria-labelledby="detailguruLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailguruLabel">Detail Guru</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Mata Pelajaran : </h5>
+                            <ul id="mapel">
+
+                            </ul>
+                            <h5>Kelas : </h5>
+                            <ul id="kelas">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="../assets/js/jquery-3.6.0.min.js"></script>

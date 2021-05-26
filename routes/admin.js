@@ -78,7 +78,6 @@ router.post('/addadmin', function (req, res, next) {
 
 router.get('/logout', function (req, res, next) {
     req.session.destroy();
-    req.flash('success', 'Login lagi..');
     res.redirect('/admin');
 });
 
@@ -145,10 +144,16 @@ router.post('/authadmin', function (req, res, next) {
 });
 
 router.get('/test', function (req, res, next) {
-    koneksi.query("SELECT * FROM siswa", function (err, result) {
-        if (err) throw err;
-        res.send(result)
-    });
+    var mapel = ['uji', 'uji123'];
+    var idguru = 'dawda';
+    var tanggal = 'dawd';
+    for (var i = 0; i < mapel.length; i++) {
+        koneksi.query("INSERT INTO mapel VALUES(NULL, ?, ?, ?, ?)", [idguru, mapel[i], tanggal, tanggal], function (err, result, fields) {
+            if (err) throw err;
+        });
+    }
+
+    res.send('done');
 
 });
 
@@ -258,6 +263,125 @@ router.get('/hapusadmin/:ids', function (req, res, next) {
 
 router.get('/lihatguru', function (req, res, next) {
     res.render('admin/lihatguru.ejs');
+});
+
+router.get('/tambahguru', function (req, res, next) {
+    res.render('admin/tambahguru.ejs')
+});
+
+router.post('/addguru', function (req, res, next) {
+    var namaguru = req.body.namaguru;
+    var email = req.body.email;
+    var password = bcrypt.hashSync('sukses1234', 10);
+    var no_wa = req.body.no_wa;
+    var jenjang = req.body.jenjang;
+    var kelas = req.body.kelas;
+    var mapel = req.body.mapel
+    var tanggal = new Date();
+    var id_gurus = shortid.generate();
+
+    koneksi.query("INSERT INTO guru (id_gurus, nama_guru, email, password, no_wa, tanggal, tanggal_update) VALUES (?, ?, ?, ?, ?, ?, ?)", [id_gurus, namaguru, email, password, no_wa, tanggal, tanggal], function (err, result, fields) {
+        if (err) throw err;
+
+        koneksi.query("SELECT max(id) as maxid FROM guru", function (err, result, fields) {
+            if (err) throw err;
+            console.log(result[0].maxid);
+            var id = result[0].maxid;
+            id++;
+            var huruf = "digyguru";
+            var idguru = huruf + sprintf("%03s", id);
+            koneksi.query("UPDATE guru SET id_guru = ? WHERE id_gurus = ?", [idguru, id_gurus], function (err, result, fields) {
+                if (err) throw err;
+                for (var i = 0; i < mapel.length; i++) {
+                    koneksi.query("INSERT INTO mapel VALUES(NULL, ?, ?, ?, ?)", [id_gurus, mapel[i], tanggal, tanggal], function (err, result, fields) {
+                        if (err) throw err;
+                    });
+                }
+
+                for (var i = 0; i < kelas.length; i++) {
+                    koneksi.query("INSERT INTO kelas_guru VALUES(NULL, ?, ?, ?, ?, ?)", [id_gurus, jenjang[i], kelas[i], tanggal, tanggal], function (err, result, fields) {
+                        if (err) throw err;
+
+                    });
+                }
+
+                req.flash('success', 'Sudah ditambah...');
+                res.redirect('/admin/tambahguru');
+            });
+        });
+    });
+
+
+});
+
+router.get('/fetchguru', function (req, res, next) {
+    koneksi.query("SELECT * FROM guru", function (err, result) {
+        if (err) throw err;
+        res.send({
+            'result': result
+        })
+    });
+});
+
+router.get('/editguru/:id_gurus', function (req, res, next) {
+    var id = req.params.id_gurus;
+
+    koneksi.query("SELECT * FROM guru WHERE id_gurus = ?", [id], function (err, result, fields) {
+        if (err) throw err;
+        res.render('admin/editguru.ejs', {
+            'result': result,
+        });
+    });
+});
+
+router.post('/editguruprosses', function (req, res, next) {
+    var namaguru = req.body.namaguru;
+    var email = req.body.email;
+    var no_wa = req.body.no_wa;
+    var jenjang = req.body.jenjang;
+    var kelas = req.body.kelas;
+    var mapel = req.body.mapel
+    var tanggal = new Date();
+    var id_gurus = req.body.id_gurus;
+
+    koneksi.query("UPDATE guru SET nama_guru = ?, email = ?, no_wa = ?, jenjang = ?, kelas = ?, mapel = ?, tanggal_update = ? WHERE id_gurus = ?", [namaguru, email, no_wa, jenjang, kelas, mapel, tanggal, id_gurus], function (err, result, fields) {
+        if (err) throw err;
+        req.flash('success', 'Sudah diedit...');
+        res.redirect('/admin/lihatguru');
+    });
+});
+
+router.get('/hapusguru/:id_gurus', function (req, res, next) {
+    var id = req.params.id_gurus;
+
+    koneksi.query("DELETE FROM guru WHERE id_gurus = ?", [id], function (err, result, fields) {
+        if (err) throw err;
+        req.flash('success', 'Sudah dihapus...');
+        res.redirect('/admin/lihatguru');
+    });
+});
+
+router.post('/detailguru/:ids', function (req, res, next) {
+    var ids = req.params.ids;
+
+    koneksi.query("SELECT * FROM mapel WHERE id_guru = ?", [ids], function (err, result, fields) {
+        res.send({
+            'data': result
+        });
+    });
+
+});
+
+
+router.post('/detailguru2/:ids', function (req, res, next) {
+    var ids = req.params.ids;
+
+    koneksi.query("SELECT * FROM kelas_guru WHERE id_guru = ?", [ids], function (err, result, fields) {
+        res.send({
+            'data2': result
+        });
+    });
+
 });
 
 
