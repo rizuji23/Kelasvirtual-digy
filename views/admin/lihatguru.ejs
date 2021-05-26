@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lihat Guru | Digyhomeschooling</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <a href="/admin/dashboard"><img src="../../assets/img/logo.png" style="cursor: pointer;" width="120" alt=""
+                id="menu-toggle"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse " id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/dashboard">Lihat Siswa</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/lihatguru">Lihat Guru</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/lihatadmin">Lihat Admin</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="judul-dashboard">
+            <h2>Digy HomeSchooling Zoom Teacher account</h2>
+        </div>
+        <% if (messages.success) { %>
+        <div class="alert alert-success" role="alert">
+            <%- messages.success %>
+        </div>
+        <% } %>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Guru</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">ID Guru</th>
+                        <th scope="col">No Wa</th>
+                        <th scope="col">Mapel</th>
+                        <th scope="col">Opsi</th>
+                    </tr>
+                </thead>
+                <tbody id="dataguru">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="uploadcsv">
+        <a href="/admin/tambahguru"><img src="../assets/img/icon-upload.png" data-toggle="modal"
+                data-target="#exampleModal" width="70" alt=""></a>
+    </div>
+
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery.simple-calendar.min.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+</body>
+
+</html>

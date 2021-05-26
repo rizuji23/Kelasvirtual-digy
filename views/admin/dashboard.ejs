@@ -13,17 +13,24 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <img src="../assets/img/logo.png" style="cursor: pointer;" width="120" alt="" id="menu-toggle">
+        <a href="/admin/dashboard"><img src="../../assets/img/logo.png" style="cursor: pointer;" width="120" alt=""
+                id="menu-toggle"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse " id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="lihatadmin.html">Lihat Admin</a>
+                    <a class="nav-link" href="/admin/dashboard">Lihat Siswa</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="/admin/lihatguru">Lihat Guru</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/lihatadmin">Lihat Admin</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -48,24 +55,10 @@
                         <th scope="col">ID Siswa</th>
                         <th scope="col">No Wa</th>
                         <th scope="col">Kelas</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Opsi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>
-                            <div class="success-siswa">
-                                <span>Sukses</span>
-                            </div>
-                        </td>
-
-                    </tr>
+                <tbody id="datasiswa">
 
                 </tbody>
             </table>
@@ -74,37 +67,8 @@
     </div>
 
     <div class="uploadcsv">
-        <img src="../assets/img/icon-upload.png" data-toggle="modal" data-target="#exampleModal" width="70" alt="">
-    </div>
-
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/admin/upload" method="POST" enctype="multipart/form-data">
-                        <div class="tambahcsv text-center">
-                            <label class="btn-file" for="filecsv">
-                                <img src="../assets/img/icon-tambahcsv.png" width="150" class="img-fluid" alt="">
-                            </label>
-                            <input type="file" id="filecsv" name="filecsv" class="filecsv">
-                        </div>
-                        <div class="namafile">
-                            <h3 class="namefiles">Nama file</h3>
-                        </div>
-                        <div class="form-group ">
-                            <input type="submit" value="Upload" class="btn-upload btn-block">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <a href="/admin/tambahsiswa"><img src="../assets/img/icon-upload.png" data-toggle="modal"
+                data-target="#exampleModal" width="70" alt=""></a>
     </div>
 
     <script src="../assets/js/jquery-3.6.0.min.js"></script>

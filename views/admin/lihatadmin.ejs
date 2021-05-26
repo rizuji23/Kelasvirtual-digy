@@ -20,10 +20,10 @@
         <div class="collapse navbar-collapse " id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="dashboard.html">Tambah Siswa</a>
+                    <a class="nav-link" href="/admin/dashboard">Tambah Siswa</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="lihatadmin.html">Lihat Admin</a>
+                    <a class="nav-link" href="/admin/lihatadmin">Lihat Admin</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Logout</a>
@@ -41,12 +41,17 @@
             </div>
             <div class="col-sm">
                 <div class="cont-btn">
-                    <a href="tambahadmin.html" class="btn btn-orange btn-warning">Tambah Admin</a>
+                    <a href="/admin/tambahadmin" class="btn btn-orange btn-warning">Tambah Admin</a>
                 </div>
 
             </div>
         </div>
 
+        <% if (messages.success) { %>
+        <div class="alert alert-success" role="alert">
+            <%- messages.success %>
+        </div>
+        <% } %>
 
         <div class="table-responsive">
             <table class="table">
@@ -59,18 +64,8 @@
                         <th scope="col">Opsi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>
-                            <a href="#" class="btn btn-primary">Edit</a>
-                            <a href="#" class="btn btn-danger">Hapus</a>
-                        </td>
+                <tbody id="dataadmin">
 
-                    </tr>
 
                 </tbody>
             </table>
