@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - Guru | Digyhomeschooling</title>
+    <title>Buat Jadwal - Guru | Digyhomeschooling</title>
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png" />
     <link href="../assets/css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -90,33 +90,38 @@
                                     <div class="col-sm">
                                         <div class="form-group form-pertemuan">
                                             <label for="">Nama: </label>
-                                            <input type="text" class="form-control input-pertemuan">
+                                            <input type="text" name="nama_guru" value="" readonly
+                                                class="form-control input-pertemuan">
                                         </div>
                                         <div class="form-group form-pertemuan">
                                             <label for="">Judul Pertemuan: </label>
-                                            <input type="text" class="form-control input-pertemuan">
+                                            <input type="text" name="judul_pertemuan"
+                                                class="form-control input-pertemuan">
                                         </div>
                                     </div>
 
                                     <div class="col-sm">
                                         <div class="form-group form-pertemuan">
                                             <label for="">Kelas: </label>
-                                            <input type="text" class="form-control input-pertemuan">
+                                            <select name="kelas" class="form-control input-pertemuan" id="optionkelas">
+                                                <option value="">--- Pilih Kelas ---</option>
+
+                                            </select>
                                         </div>
                                         <div class="form-group form-pertemuan">
                                             <label for="">Tanggal: </label>
-                                            <input type="date" class="form-control input-pertemuan">
+                                            <input type="datetime-local" name="tanggal_pertemuan"
+                                                class="form-control input-pertemuan">
                                         </div>
                                     </div>
 
                                     <div class="col-sm">
                                         <div class="form-group form-pertemuan">
-                                            <label for="">Filter Guru: </label>
-                                            <input type="text" class="form-control input-pertemuan">
-                                        </div>
-                                        <div class="form-group form-pertemuan">
-                                            <label for="">Pelajaran: </label>
-                                            <input type="text" class="form-control input-pertemuan">
+                                            <label for="">Mata Pelajaran: </label>
+                                            <select name="mapel" class="form-control input-pertemuan" id="optionmapel">
+                                                <option value="">--- Pilih Mata Pelajaran ---</option>
+
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -125,74 +130,77 @@
                     </div>
                 </div>
 
-                <div class="row mt-4">
-                    <div class="col-sm">
-                        <div class="calendar2">
-                            <div class="card">
-                                <div class="card-header">
-                                    <span>Pilih Tanggal Pertemuan</span>
-                                </div>
-                                <div class="card-body card-calendar">
-                                    <div id="calendars">
+                <form action="/guru/addpertemuan" method="POST" enctype="multipart/form-data">
 
+                    <div class="row mt-4">
+                        <div class="col-sm">
+
+                            <div class="thumbnail">
+                                <div class="card">
+                                    <label for="thumbnail_file">
+                                        <div class="card-body card-thumb">
+                                            <div class="content-thumb text-center">
+                                                <img src="../assets/img/icon/add-photo-un.png" alt="">
+                                                <h5>Add Thumbnail</h5>
+                                                <small class="namefile-thumb"></small>
+                                            </div>
+                                            <input type="file" name="thumbnail_file" id="thumbnail_file"
+                                                class="thumbnail_file">
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="card mt-4">
+                                <label for="materi_file">
+                                    <div class="card-body card-materi">
+                                        <div class="content-materi text-center">
+                                            <img src="../assets/img/icon/document-un.png" width="50" alt="">
+                                            <h4>Materi</h4>
+                                            <small class="namefile-materi"></small>
+                                        </div>
+                                        <input type="file" name="materi_file" id="materi_file" class="materi_file">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="content-siswa-o text-center">
+                                        <img src="../assets/img/icon/user-u.png" alt="">
+                                        <h1 class="mt-2">62</h1>
+                                        <p>Siswa <br> Online</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="thumbnail mt-3">
-                            <div class="card">
-                                <div class="card-body card-thumb">
-                                    <div class="content-thumb text-center">
-                                        <img src="../assets/img/icon/add-photo-un.png" alt="">
-                                        <h5>Add Thumbnail</h5>
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <div class="content-siswa-o text-center">
+                                        <h1 class="mt-2">5</h1>
+                                        <p>Kelas Sedang <br> Online</p>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="content-siswa-o text-center">
-                                    <img src="../assets/img/icon/user-u.png" alt="">
-                                    <h1 class="mt-2">62</h1>
-                                    <p>Siswa <br> Online</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <div class="content-siswa-o text-center">
-                                    <h1 class="mt-2">5</h1>
-                                    <p>Kelas Sedang <br> Online</p>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="card mt-4">
-                            <div class="card-body card-materi">
-                                <div class="content-materi text-center">
-                                    <img src="../assets/img/icon/document-un.png" width="50" alt="">
-                                    <h4>Materi</h4>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="form-group mt-3">
+                        <button class="btn btn-warning btn-block btn-jadwal">Buat Jadwal <img
+                                src="../assets/img/icon/next.png" class="float-right mr-4 mt-1" alt=""></button>
                     </div>
-                </div>
 
-
-                <div class="form-group mt-3">
-                    <button class="btn btn-warning btn-block btn-jadwal">Buat Jadwal <img
-                            src="../assets/img/icon/next.png" class="float-right mr-4 mt-1" alt=""></button>
-                </div>
+                </form>
 
 
 
 
             </div>
 
-
+            <!-- <input type="hidden" id="ids" value=""> -->
 
         </div>
     </div>
@@ -203,6 +211,7 @@
     <!-- Core theme JS-->
     <script src="../assets/js/jquery.simple-calendar.min.js"></script>
     <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/guruscript.js"></script>
 </body>
 
 </html>

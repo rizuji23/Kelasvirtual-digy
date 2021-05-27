@@ -11,6 +11,7 @@ var flash = require('express-flash');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var busboy = require('connect-busboy');
 
 var mysql = require('mysql');
 var koneksi = require('./models/connect');
@@ -45,6 +46,7 @@ app.use(session({
 
 app.use(flash());
 app.use(expressValidator());
+app.use(busboy());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

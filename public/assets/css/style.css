@@ -696,6 +696,14 @@ body {
     word-wrap: break-word !important;
 }
 
+.thumbnail_file {
+    display: none;
+}
+
+.materi_file {
+    display: none;
+}
+
 @media screen and (max-width: 425px) {
     .container {
         padding-left: 30px;

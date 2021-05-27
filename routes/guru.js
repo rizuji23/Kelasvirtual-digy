@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
+var formidable = require('formidable');
 var koneksi = require('../models/connect');
+var fs = require('fs')
 
 router.get('/', function (req, res, next) {
     res.render('guru/index.ejs');
@@ -32,11 +34,37 @@ router.post('/getmapel/:ids', function (req, res, next) {
             'data_mapel': result
         });
     });
+
 });
 
 router.get('/buatjadwal', function (req, res, next) {
+    // if (req.session.loggedin2) {
+    //     koneksi.query("SELECT * FROM guru WHERE id_guru = ?", [req.session.id_guru], function (err, result, fields) {
+    //         if (err) throw err;
+    //         res.render('guru/buatjadwal.ejs', {
+    //             id_guru: req.session.id_guru,
+    //             nama_guru: req.session.nama_guru,
+    //             ids: req.session.ids,
+    //         });
+    //     });
+
+    // } else {
+    //     req.flash('error', 'Silahkan login terlebih dahulu');
+    //     res.redirect('/guru');
+    // }
+
     res.render('guru/buatjadwal.ejs');
 });
+
+router.post('/getkelas/:ids', function (req, res, next) {
+    var ids = req.params.ids;
+
+    koneksi.query("SELECT * FROM kelas_guru WHERE id_guru = ?", [ids], function (err, result, fields) {
+        res.send({
+            'data_kelas': result
+        });
+    });
+})
 
 router.post('/authguru', function (req, res, next) {
     var id_guru = req.body.id_guru;
@@ -74,5 +102,35 @@ router.post('/authguru', function (req, res, next) {
         });
     }
 });
+
+router.post('/addpertemuan', function (req, res, next) {
+    var form = new formidable.IncomingForm();
+    //Formidable uploads to operating systems tmp dir by default
+    form.uploadDir = "./public/assets/img/thumbnail/"; //set upload directory
+    form.keepExtensions = true; //keep file extension
+
+    form.parse(req, function (err, fields, files) {
+        res.writeHead(200, {
+            'content-type': 'text/plain'
+        });
+        res.write('received upload:\n\n');
+        console.log("form.bytesReceived");
+        //TESTING
+        console.log("file size: " + JSON.stringify(files.thumbnail_file.size));
+        console.log("file path: " + JSON.stringify(files.thumbnail_file.path));
+        console.log("file name: " + JSON.stringify(files.thumbnail_file.name));
+        console.log("file type: " + JSON.stringify(files.thumbnail_file.type));
+        console.log("astModifiedDate: " + JSON.stringify(files.thumbnail_file.lastModifiedDate));
+
+        //Formidable changes the name of the uploaded file
+        //Rename the file to its original name
+        fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
+        });
+        res.end();
+    });
+})
 
 module.exports = router;
