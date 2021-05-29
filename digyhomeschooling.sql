@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 26, 2021 at 04:30 PM
+-- Generation Time: May 29, 2021 at 03:10 PM
 -- Server version: 8.0.25-0ubuntu0.20.04.1
 -- PHP Version: 7.4.3
 
@@ -85,9 +85,6 @@ CREATE TABLE `guru` (
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `no_wa` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mapel` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenjang` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kelas` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_update` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -96,9 +93,54 @@ CREATE TABLE `guru` (
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`id`, `id_gurus`, `id_guru`, `nama_guru`, `email`, `password`, `no_wa`, `mapel`, `jenjang`, `kelas`, `tanggal`, `tanggal_update`) VALUES
-(2, 'lWF_vZb6L', 'digyguru003', 'Aye Shabira', 'aye@aye.com', '$2b$10$lyJ9WS7ggjXgGTalS15.rejvIz5MDH0B1EUNHyDrWIVXkxCrRIqgG', '099989877678', 'Matematika', 'SMA', '1', '2021-05-26 10:21:47.947', '2021-05-26 10:21:47.947'),
-(3, 'UIPHHbjI4', 'digyguru004', '', '', '$2b$10$zRnrKiYcdtXpIst2GF3SaeDjTjHQDlGvdI0XzeYF/iXLOGGAmoFcW', '', '', '', '', '2021-05-26 12:46:53.810', '2021-05-26 12:46:53.810');
+INSERT INTO `guru` (`id`, `id_gurus`, `id_guru`, `nama_guru`, `email`, `password`, `no_wa`, `tanggal`, `tanggal_update`) VALUES
+(2, 'lWF_vZb6L', 'digyguru003', 'Aye Shabira', 'aye@aye.com', '$2b$10$lyJ9WS7ggjXgGTalS15.rejvIz5MDH0B1EUNHyDrWIVXkxCrRIqgG', '099989877678', '2021-05-26 10:21:47.947', '2021-05-26 10:21:47.947'),
+(4, 'T9VU9-xBe', 'digyguru005', 'Rizki Fauzi', 'adawd@dawdaw.afawd', '$2b$10$nH1ThSsI69OFNyLp7LPNnOsG/jc2uQwo.f0.aAt00qOWtstJlFgfq', '23123123', '2021-05-26 20:34:36.900', '2021-05-26 20:34:36.900');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kelas_guru`
+--
+
+CREATE TABLE `kelas_guru` (
+  `id` int NOT NULL,
+  `id_guru` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenjang` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kelas` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_update` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kelas_guru`
+--
+
+INSERT INTO `kelas_guru` (`id`, `id_guru`, `jenjang`, `kelas`, `tanggal`, `tanggal_update`) VALUES
+(1, 'T9VU9-xBe', 'SMP', '1', '2021-05-26 20:34:36.900', '2021-05-26 20:34:36.900'),
+(2, 'T9VU9-xBe', 'SD', '1', '2021-05-26 20:34:36.900', '2021-05-26 20:34:36.900');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mapel`
+--
+
+CREATE TABLE `mapel` (
+  `id` int NOT NULL,
+  `id_guru` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mapel` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_update` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mapel`
+--
+
+INSERT INTO `mapel` (`id`, `id_guru`, `mapel`, `tanggal`, `tanggal_update`) VALUES
+(8, 'T9VU9-xBe', 'IPS', '2021-05-26 20:34:36.900', '2021-05-26 20:34:36.900'),
+(9, 'T9VU9-xBe', 'PKN', '2021-05-26 20:34:36.900', '2021-05-26 20:34:36.900');
 
 -- --------------------------------------------------------
 
@@ -151,6 +193,18 @@ ALTER TABLE `guru`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kelas_guru`
+--
+ALTER TABLE `kelas_guru`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mapel`
+--
+ALTER TABLE `mapel`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -176,7 +230,19 @@ ALTER TABLE `article`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `kelas_guru`
+--
+ALTER TABLE `kelas_guru`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `mapel`
+--
+ALTER TABLE `mapel`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `siswa`
