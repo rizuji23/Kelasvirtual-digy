@@ -15,8 +15,7 @@ var busboy = require('connect-busboy');
 
 var mysql = require('mysql');
 var koneksi = require('./models/connect');
-var io = require('socket-io');
-
+// var io = require("socket.io");
 var indexRouter = require('./routes/index');
 var guruRouter = require('./routes/guru');
 var siswaRouter = require('./routes/siswa');

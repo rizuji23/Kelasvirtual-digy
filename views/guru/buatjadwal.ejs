@@ -88,7 +88,7 @@
                                 <span>Data Pertemuan</span>
                             </div>
                             <div class="card-body">
-
+                                <input type="hidden" id="ids" value="<%= ids %>">
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group form-pertemuan">
@@ -113,9 +113,9 @@
                                             </select>
                                         </div>
                                         <div class="form-group form-pertemuan">
-                                            <label for="">Tanggal: </label>
+                                            <label for="">Tanggal dan Waktu Pertemuan: </label>
                                             <input type="text" class="form-control input-pertemuan" id="datepicker"
-                                                required>
+                                                name="tanggal_pertemuan" required>
                                         </div>
                                     </div>
 

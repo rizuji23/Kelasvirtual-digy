@@ -4,7 +4,9 @@ var bcrypt = require('bcrypt');
 var formidable = require('formidable');
 var koneksi = require('../models/connect');
 var fs = require('fs')
-var io = require('sockect-io');
+// var io = require("socket.io")(http);
+var shortid = require('shortid');
+
 
 router.get('/', function (req, res, next) {
     res.render('guru/index.ejs');
@@ -39,22 +41,22 @@ router.post('/getmapel/:ids', function (req, res, next) {
 });
 
 router.get('/buatjadwal', function (req, res, next) {
-    // if (req.session.loggedin2) {
-    //     koneksi.query("SELECT * FROM guru WHERE id_guru = ?", [req.session.id_guru], function (err, result, fields) {
-    //         if (err) throw err;
-    //         res.render('guru/buatjadwal.ejs', {
-    //             id_guru: req.session.id_guru,
-    //             nama_guru: req.session.nama_guru,
-    //             ids: req.session.ids,
-    //         });
-    //     });
+    if (req.session.loggedin2) {
+        koneksi.query("SELECT * FROM guru WHERE id_guru = ?", [req.session.id_guru], function (err, result, fields) {
+            if (err) throw err;
+            res.render('guru/buatjadwal.ejs', {
+                id_guru: req.session.id_guru,
+                nama_guru: req.session.nama_guru,
+                ids: req.session.ids,
+            });
+        });
 
-    // } else {
-    //     req.flash('error', 'Silahkan login terlebih dahulu');
-    //     res.redirect('/guru');
-    // }
+    } else {
+        req.flash('error', 'Silahkan login terlebih dahulu');
+        res.redirect('/guru');
+    }
 
-    res.render('guru/buatjadwal.ejs');
+    // res.render('guru/buatjadwal.ejs');
 });
 
 router.post('/getkelas/:ids', function (req, res, next) {
@@ -104,18 +106,18 @@ router.post('/authguru', function (req, res, next) {
     }
 });
 
-io.on('connection', function (socket) {
-    console.log('user terkonek');
-    socket.on('jadwal added', function (status) {
-        add_jadwal(status, function (res) {
-            if (res) {
-                io.emit('refresh jadwal', status);
-            } else {
-                io.emit('error');
-            }
-        })
-    })
-})
+// io.on('connection', function (socket) {
+//     console.log('user terkonek');
+//     socket.on('jadwal added', function (status) {
+//         add_jadwal(status, function (res) {
+//             if (res) {
+//                 io.emit('refresh jadwal', status);
+//             } else {
+//                 io.emit('error');
+//             }
+//         })
+//     })
+// })
 
 var add_jadwal = function (status, callback) {
     router.post('/addpertemuan', function (req, res, next) {
@@ -124,8 +126,11 @@ var add_jadwal = function (status, callback) {
         var nama_guru = req.body.nama_guru;
         var judul_pertemuan = req.body.judul_pertemuan;
         var kelas = req.body.kelas;
+        var tanggal_pertemuan = req.body.tanggal_pertemuan;
         var mapel = req.body.mapel;
-
+        var tanggal = new Date();
+        var id_zoom = shortid.generate();
+        var id_guru = req.body.ids;
 
         form.uploadDir = "./public/assets/img/thumbnail/";
         form.keepExtensions = true;
@@ -144,9 +149,16 @@ var add_jadwal = function (status, callback) {
                     throw err;
                 console.log('renamed complete');
             });
+
+            koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, tanggal, tanggal], function (err, result, fields) {
+                if (err) throw err;
+                res.send('disimpan');
+            })
             res.end();
         });
     });
+
+
 }
 
 
