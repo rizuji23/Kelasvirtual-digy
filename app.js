@@ -36,11 +36,11 @@ app.use(cookieParser());
 
 app.use(session({
     secret: 'sukses1234',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 60000
-    }
+    // resave: false,
+    // saveUninitialized: true,
+    // cookie: {
+    //     maxAge: 60000
+    // }
 }));
 
 

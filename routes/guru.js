@@ -48,6 +48,7 @@ router.get('/buatjadwal', function (req, res, next) {
                 id_guru: req.session.id_guru,
                 nama_guru: req.session.nama_guru,
                 ids: req.session.ids,
+                id_zoom: shortid.generate()
             });
         });
 
@@ -65,6 +66,14 @@ router.post('/getkelas/:ids', function (req, res, next) {
     koneksi.query("SELECT * FROM kelas_guru WHERE id_guru = ?", [ids], function (err, result, fields) {
         res.send({
             'data_kelas': result
+        });
+    });
+})
+
+router.post('/getjadwal', function (req, res, next) {
+    koneksi.query("SELECT * FROM jadwal_zoom ", function (err, result, fields) {
+        res.send({
+            'data_jadwal': result
         });
     });
 })
@@ -118,48 +127,46 @@ router.post('/authguru', function (req, res, next) {
 //         })
 //     })
 // })
+router.post('/addpertemuan', function (req, res, next) {
 
-var add_jadwal = function (status, callback) {
-    router.post('/addpertemuan', function (req, res, next) {
-        var form = new formidable.IncomingForm();
+    res.setHeader("Content-Type", "text/html");
+    var form = new formidable.IncomingForm();
 
-        var nama_guru = req.body.nama_guru;
-        var judul_pertemuan = req.body.judul_pertemuan;
-        var kelas = req.body.kelas;
-        var tanggal_pertemuan = req.body.tanggal_pertemuan;
-        var mapel = req.body.mapel;
+    form.keepExtensions = true;
+
+    form.parse(req, function (err, fields, files) {
+
+        var nama_guru = fields.nama_guru;
+        var judul_pertemuan = fields.judul_pertemuan;
+        var kelas = fields.kelas;
+        var tanggal_pertemuan = fields.tanggal_pertemuan;
+        var mapel = fields.mapel;
         var tanggal = new Date();
         var id_zoom = shortid.generate();
-        var id_guru = req.body.ids;
+        var id_guru = fields.ids;
 
-        form.uploadDir = "./public/assets/img/thumbnail/";
-        form.keepExtensions = true;
-
-        form.parse(req, function (err, fields, files) {
-            res.write('received upload:\n\n');
-
-            fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
-                if (err)
-                    throw err;
-                console.log('renamed complete');
-            });
-
-            fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
-                if (err)
-                    throw err;
-                console.log('renamed complete');
-            });
-
-            koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, tanggal, tanggal], function (err, result, fields) {
-                if (err) throw err;
-                res.send('disimpan');
-            })
-            res.end();
+        fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
         });
+
+        fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
+        });
+
+        koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, tanggal, tanggal], function (err, result, fields) {
+            if (err) throw err;
+
+        });
+        res.redirect('/guru/jadwal');
     });
+});
 
 
-}
+
 
 
 module.exports = router;

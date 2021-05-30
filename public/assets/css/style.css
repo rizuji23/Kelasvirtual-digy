@@ -20,6 +20,23 @@
     color: #fff;
 }
 
+.img-user-fix {
+    position: absolute;
+    margin-top: -70px;
+    margin-left: 25px;
+}
+
+.card-img {
+    border-radius: 16px 16px 0px 0px !important;
+}
+
+.img-user-s {
+    width: 80px;
+    border: 3px solid white;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.20);
+}
+
+
 body {
     font-family: 'Monserrat Regular' !important;
     scroll-behavior: smooth;
@@ -303,15 +320,57 @@ body {
     width: 300px;
     height: auto;
     background-color: white;
-    border: 2px solid #a5a5a5;
+    border: 1px solid #a5a5a5;
     border-radius: 16px;
+    margin-top: 50px;
+    transition: 0.7s, transform 0.7s;
+    cursor: default;
+}
+
+.detail-judul {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.jadwal-content {
     padding-left: 35px;
     padding-right: 35px;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-top: 50px;
-    transition: 0.7s, transform 0.7s;
 }
+
+.detail-jadwal h5 {
+    color: #F69014;
+    font-family: 'Monserrat Bold';
+    margin-bottom: 0px;
+
+}
+
+.detail-judul h3 {
+    color: #F69014;
+    font-family: 'Monserrat Bold';
+    margin-bottom: 0px;
+}
+
+.detail-judul {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.detail-jadwal p {
+    color: #303030;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.detail-nama p {
+    color: #303030;
+    font-size: 17px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
 
 .box-jadwal:hover {
     transform: scale(1.02);
@@ -720,5 +779,47 @@ body {
     .container {
         padding-left: 30px;
         padding-right: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .img-user-fix {
+        margin-top: -65px;
+    }
+
+    .img-user-s {
+        width: 75px;
+    }
+
+}
+
+@media screen and (max-width: 662px) {
+    .img-user-fix {
+        margin-top: -60px;
+    }
+
+    .img-user-s {
+        width: 70px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .img-user-fix {
+        margin-top: -50px;
+    }
+
+    .img-user-s {
+        width: 65px;
+    }
+
+}
+
+@media screen and (max-width: 425px) {
+    .img-user-fix {
+        margin-top: -50px;
+    }
+
+    .img-user-s {
+        width: 60px;
     }
 }
