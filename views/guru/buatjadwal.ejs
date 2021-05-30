@@ -11,7 +11,8 @@
     <link href="../assets/css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/simple-calendar.css">
-    <link rel="stylesheet" href="../assets/css/jquery-ui.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 </head>
 
 <body>
@@ -79,63 +80,63 @@
                     <h3 class="mt-5">Membuat Jadwal Zoom</h3>
                     <p>Pembuatan jadwal Zoom meeting untuk pengajar</p>
                 </div>
+                <form action="/guru/addpertemuan" method="POST" enctype="multipart/form-data">
+                    <div class="biodata">
 
-                <div class="biodata">
-                    <div class="card">
-                        <div class="card-header">
-                            <span>Data Pertemuan</span>
-                        </div>
-                        <div class="card-body">
-                            <form action="">
+                        <div class="card">
+                            <div class="card-header">
+                                <span>Data Pertemuan</span>
+                            </div>
+                            <div class="card-body">
+
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group form-pertemuan">
                                             <label for="">Nama: </label>
                                             <input type="text" name="nama_guru" value="" readonly
-                                                class="form-control input-pertemuan">
+                                                class="form-control input-pertemuan" required>
                                         </div>
                                         <div class="form-group form-pertemuan">
                                             <label for="">Judul Pertemuan: </label>
                                             <input type="text" name="judul_pertemuan"
-                                                class="form-control input-pertemuan">
+                                                class="form-control input-pertemuan" required>
                                         </div>
                                     </div>
 
                                     <div class="col-sm">
                                         <div class="form-group form-pertemuan">
                                             <label for="">Kelas: </label>
-                                            <select name="kelas" class="form-control input-pertemuan" id="optionkelas">
+                                            <select name="kelas" class="form-control input-pertemuan" id="optionkelas"
+                                                required>
                                                 <option value="">--- Pilih Kelas ---</option>
 
                                             </select>
                                         </div>
                                         <div class="form-group form-pertemuan">
                                             <label for="">Tanggal: </label>
-                                            <input type='text' class="form-control" id='datetimepicker4' />
-                                            <input type='text' class="form-control" id='datetimepicker2' />
+                                            <input type="text" class="form-control input-pertemuan" id="datepicker"
+                                                required>
                                         </div>
                                     </div>
 
                                     <div class="col-sm">
                                         <div class="form-group form-pertemuan">
                                             <label for="">Mata Pelajaran: </label>
-                                            <select name="mapel" class="form-control input-pertemuan" id="optionmapel">
+                                            <select name="mapel" class="form-control input-pertemuan" id="optionmapel"
+                                                required>
                                                 <option value="">--- Pilih Mata Pelajaran ---</option>
 
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <form action="/guru/addpertemuan" method="POST" enctype="multipart/form-data">
 
                     <div class="row mt-4">
                         <div class="col-sm">
-
                             <div class="thumbnail">
                                 <div class="card">
                                     <label for="thumbnail_file">
@@ -146,7 +147,7 @@
                                                 <small class="namefile-thumb"></small>
                                             </div>
                                             <input type="file" name="thumbnail_file" id="thumbnail_file"
-                                                class="thumbnail_file">
+                                                class="thumbnail_file" required>
                                         </div>
                                     </label>
                                 </div>
@@ -160,26 +161,51 @@
                                             <h4>Materi</h4>
                                             <small class="namefile-materi"></small>
                                         </div>
-                                        <input type="file" name="materi_file" id="materi_file" class="materi_file">
+                                        <input type="file" name="materi_file" id="materi_file" class="materi_file"
+                                            required>
                                     </div>
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="content-siswa-o text-center">
-                                        <img src="../assets/img/icon/user-u.png" alt="">
-                                        <h1 class="mt-2">62</h1>
-                                        <p>Siswa <br> Online</p>
-                                    </div>
+                            <div class="card card-diskusi">
+                                <div class="card-header card-diskusi-header">
+                                    <span>Live Pengambilan Jadwal</span>
                                 </div>
-                            </div>
-                            <div class="card mt-3">
-                                <div class="card-body">
-                                    <div class="content-siswa-o text-center">
-                                        <h1 class="mt-2">5</h1>
-                                        <p>Kelas Sedang <br> Online</p>
+                                <div class="card-body card-body-custom">
+                                    <div class="body-chat">
+                                        <div class="chat-boxs">
+                                            <div class="sender" data-aos="fade-up" data-aos-duration="1200">
+                                                <div class="box-chat-isi">
+                                                    <p>Aye Shabira - Matematika - SMP V1 -> 7</p>
+                                                    <!-- <div class="kerucut"></div> -->
+                                                    <div class="chat-box">
+
+                                                        Hai, fauzi:"
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="sender" data-aos="fade-up" data-aos-duration="1500">
+                                                <div class="box-chat-isi">
+                                                    <p>Aye Shabira - Matematika - SMP V1 -> 7</p>
+                                                    <!-- <div class="kerucut"></div> -->
+                                                    <div class="chat-box">
+                                                        :"
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="sender" data-aos="fade-up" data-aos-duration="1600">
+                                                <div class="box-chat-isi">
+                                                    <p>Aye Shabira - Matematika - SMP V1 -> 7</p>
+                                                    <!-- <div class="kerucut"></div> -->
+                                                    <div class="chat-box">
+                                                        ❤
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -193,12 +219,7 @@
                         <button class="btn btn-warning btn-block btn-jadwal">Buat Jadwal <img
                                 src="../assets/img/icon/next.png" class="float-right mr-4 mt-1" alt=""></button>
                     </div>
-
                 </form>
-
-
-
-
             </div>
 
             <!-- <input type="hidden" id="ids" value=""> -->
@@ -212,7 +233,32 @@
     <!-- Core theme JS-->
     <script src="../assets/js/jquery.simple-calendar.min.js"></script>
     <script src="../assets/js/scripts.js"></script>
-    <script src="../assets/js/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+    </script>
+    <script>
+        var datesForDisable = ["2021-05-14", "2021-05-15", "2021-05-16"]
+        var hoursdisable = ["9", "10", "11"];
+        $(function () {
+            $('#datepicker').datetimepicker({
+                disabledDates: datesForDisable,
+                disabledTimeIntervals: [
+                    [moment({
+                        h: 0
+                    }), moment({
+                        h: 8
+                    })],
+                    [moment({
+                        h: 18
+                    }), moment({
+                        h: 24
+                    })]
+                ],
+                sideBySide: true,
+            });
+        });
+    </script>
     <script src="../assets/js/guruscript.js"></script>
 </body>
 

@@ -8,6 +8,18 @@
     src: url('../font/Montserrat-Bold.ttf');
 }
 
+
+.datepicker-days table .disabled-date.day {
+    background-color: #663399;
+    color: #fff;
+}
+
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+    background: #8447c2;
+    color: #fff;
+}
+
 body {
     font-family: 'Monserrat Regular' !important;
     scroll-behavior: smooth;

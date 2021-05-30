@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt');
 var formidable = require('formidable');
 var koneksi = require('../models/connect');
 var fs = require('fs')
+var io = require('sockect-io');
 
 router.get('/', function (req, res, next) {
     res.render('guru/index.ejs');
@@ -103,28 +104,50 @@ router.post('/authguru', function (req, res, next) {
     }
 });
 
-router.post('/addpertemuan', function (req, res, next) {
-    var form = new formidable.IncomingForm();
-    //Formidable uploads to operating systems tmp dir by default
-    form.uploadDir = "./public/assets/img/thumbnail/"; //set upload directory
-    form.keepExtensions = true; //keep file extension
+io.on('connection', function (socket) {
+    console.log('user terkonek');
+    socket.on('jadwal added', function (status) {
+        add_jadwal(status, function (res) {
+            if (res) {
+                io.emit('refresh jadwal', status);
+            } else {
+                io.emit('error');
+            }
+        })
+    })
+})
 
-    form.parse(req, function (err, fields, files) {
-        res.write('received upload:\n\n');
+var add_jadwal = function (status, callback) {
+    router.post('/addpertemuan', function (req, res, next) {
+        var form = new formidable.IncomingForm();
 
-        fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
-            if (err)
-                throw err;
-            console.log('renamed complete');
+        var nama_guru = req.body.nama_guru;
+        var judul_pertemuan = req.body.judul_pertemuan;
+        var kelas = req.body.kelas;
+        var mapel = req.body.mapel;
+
+
+        form.uploadDir = "./public/assets/img/thumbnail/";
+        form.keepExtensions = true;
+
+        form.parse(req, function (err, fields, files) {
+            res.write('received upload:\n\n');
+
+            fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
+                if (err)
+                    throw err;
+                console.log('renamed complete');
+            });
+
+            fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
+                if (err)
+                    throw err;
+                console.log('renamed complete');
+            });
+            res.end();
         });
-
-        fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
-            if (err)
-                throw err;
-            console.log('renamed complete');
-        });
-        res.end();
     });
-});
+}
+
 
 module.exports = router;

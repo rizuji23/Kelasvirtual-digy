@@ -15,6 +15,7 @@ var busboy = require('connect-busboy');
 
 var mysql = require('mysql');
 var koneksi = require('./models/connect');
+var io = require('socket-io');
 
 var indexRouter = require('./routes/index');
 var guruRouter = require('./routes/guru');
@@ -55,7 +56,6 @@ app.use('/', indexRouter);
 app.use('/siswa', siswaRouter);
 app.use('/guru', guruRouter);
 app.use('/admin', adminRouter);
-
 
 app.use(function (req, res, next) {
     next(createError(404))
