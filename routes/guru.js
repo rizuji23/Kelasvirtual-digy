@@ -110,27 +110,21 @@ router.post('/addpertemuan', function (req, res, next) {
     form.keepExtensions = true; //keep file extension
 
     form.parse(req, function (err, fields, files) {
-        res.writeHead(200, {
-            'content-type': 'text/plain'
-        });
         res.write('received upload:\n\n');
-        console.log("form.bytesReceived");
-        //TESTING
-        console.log("file size: " + JSON.stringify(files.thumbnail_file.size));
-        console.log("file path: " + JSON.stringify(files.thumbnail_file.path));
-        console.log("file name: " + JSON.stringify(files.thumbnail_file.name));
-        console.log("file type: " + JSON.stringify(files.thumbnail_file.type));
-        console.log("astModifiedDate: " + JSON.stringify(files.thumbnail_file.lastModifiedDate));
 
-        //Formidable changes the name of the uploaded file
-        //Rename the file to its original name
         fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
+        });
+
+        fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
             if (err)
                 throw err;
             console.log('renamed complete');
         });
         res.end();
     });
-})
+});
 
 module.exports = router;
