@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 29, 2021 at 03:10 PM
+-- Generation Time: May 31, 2021 at 10:44 AM
 -- Server version: 8.0.25-0ubuntu0.20.04.1
 -- PHP Version: 7.4.3
 
@@ -81,12 +81,12 @@ CREATE TABLE `guru` (
   `id` int NOT NULL,
   `id_gurus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_guru` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nama_guru` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_wa` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal_update` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `nama_guru` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_wa` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_update` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -100,16 +100,44 @@ INSERT INTO `guru` (`id`, `id_gurus`, `id_guru`, `nama_guru`, `email`, `password
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jadwal_zoom`
+--
+
+CREATE TABLE `jadwal_zoom` (
+  `id` int NOT NULL,
+  `id_zoom` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_guru` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_guru` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kelas` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mapel` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `judul_pertemuan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_pertemuan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `materi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_update` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jadwal_zoom`
+--
+
+INSERT INTO `jadwal_zoom` (`id`, `id_zoom`, `id_guru`, `nama_guru`, `kelas`, `mapel`, `judul_pertemuan`, `tanggal_pertemuan`, `thumbnail`, `materi`, `tanggal`, `tanggal_update`) VALUES
+(4, 'H3IDdX7W-', 'T9VU9-xBe', 'Rizki Fauzi', 'SMP 1', 'PKN', 'Coba Pertemuan 1', '05/30/2021 8:49 PM', '4ea814fb3d1bffcf1f26263278279df5.jpg', 'Analisis SWOT Strategi Perenecanaan Komunisi .doc', '2021-05-30 20:51:41.714', '2021-05-30 20:51:41.714');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kelas_guru`
 --
 
 CREATE TABLE `kelas_guru` (
   `id` int NOT NULL,
   `id_guru` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenjang` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kelas` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal_update` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `jenjang` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kelas` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_update` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -128,10 +156,10 @@ INSERT INTO `kelas_guru` (`id`, `id_guru`, `jenjang`, `kelas`, `tanggal`, `tangg
 
 CREATE TABLE `mapel` (
   `id` int NOT NULL,
-  `id_guru` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mapel` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal_update` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `id_guru` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mapel` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_update` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -156,7 +184,7 @@ CREATE TABLE `siswa` (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_siswa` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `no_wa` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenjang` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenjang` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kelas` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_update` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -190,6 +218,12 @@ ALTER TABLE `article`
 -- Indexes for table `guru`
 --
 ALTER TABLE `guru`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jadwal_zoom`
+--
+ALTER TABLE `jadwal_zoom`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -230,6 +264,12 @@ ALTER TABLE `article`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `jadwal_zoom`
+--
+ALTER TABLE `jadwal_zoom`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
