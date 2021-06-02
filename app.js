@@ -15,11 +15,13 @@ var busboy = require('connect-busboy');
 
 var mysql = require('mysql');
 var koneksi = require('./models/connect');
-// var io = require("socket.io");
+
 var indexRouter = require('./routes/index');
 var guruRouter = require('./routes/guru');
 var siswaRouter = require('./routes/siswa');
 var adminRouter = require('./routes/admin');
+
+
 
 var adminModels = require('./models/adminModels');
 
@@ -42,7 +44,6 @@ app.use(session({
     //     maxAge: 60000
     // }
 }));
-
 
 app.use(flash());
 app.use(expressValidator());

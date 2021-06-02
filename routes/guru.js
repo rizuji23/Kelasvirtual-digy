@@ -4,9 +4,23 @@ var bcrypt = require('bcrypt');
 var formidable = require('formidable');
 var koneksi = require('../models/connect');
 var fs = require('fs')
+var swall = require('sweetalert');
 // var io = require("socket.io")(http);
 var shortid = require('shortid');
 
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+const rp = require('request-promise');
+const {
+    default: swal
+} = require('sweetalert');
+
+const payload = {
+    iss: config.APIKey,
+    exp: ((new Date()).getTime() + 5000)
+};
+
+const token = jwt.sign(payload, config.APISecret);
 
 router.get('/', function (req, res, next) {
     res.render('guru/index.ejs');
@@ -127,6 +141,7 @@ router.post('/authguru', function (req, res, next) {
 //         })
 //     })
 // })
+
 router.post('/addpertemuan', function (req, res, next) {
 
     res.setHeader("Content-Type", "text/html");
@@ -144,6 +159,7 @@ router.post('/addpertemuan', function (req, res, next) {
         var tanggal = new Date();
         var id_zoom = shortid.generate();
         var id_guru = fields.ids;
+        var id_zoom_meeting = shortid.generate();
 
         fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
             if (err)
@@ -157,16 +173,103 @@ router.post('/addpertemuan', function (req, res, next) {
             console.log('renamed complete');
         });
 
-        koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, tanggal, tanggal], function (err, result, fields) {
+        koneksi.query("SELECT * FROM jadwal_zoom WHERE tanggal_pertemuan = ?", [tanggal_pertemuan], function (err, result, fields) {
             if (err) throw err;
 
+            if (!result.length > 0) {
+                koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, tanggal, tanggal], function (err, result, fields) {
+                    if (err) throw err;
+
+                    koneksi.query("SELECT * FROM guru WHERE id_gurus = ?", [id_guru], function (err, result, fields) {
+                        if (err) throw err;
+
+                        var options = {
+                            method: "POST",
+                            uri: "https://api.zoom.us/v2/users/" + result[0].email + "/meetings",
+                            body: {
+                                topic: judul_pertemuan,
+                                type: 1,
+                                start_time: tanggal_pertemuan,
+                                duration: 60,
+                                timezone: 'Asia/Jakarta',
+                                settings: {
+                                    host_video: "true",
+                                    participant_video: "true"
+                                }
+                            },
+                            auth: {
+                                bearer: token
+                            },
+                            headers: {
+                                "User-Agent": "Zoom-api-Jwt-Request",
+                                "content-type": "application/json"
+                            },
+                            json: true
+                        };
+
+                        rp(options).then(function (response) {
+                            console.log("response is: ", response);
+                            koneksi.query("INSERT INTO zoom_meetings VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom_meeting, id_zoom, id_guru, response.start_url, response.join_url, response.id, response.password, tanggal, tanggal], function (err, result, fields) {
+                                req.flash('success', 'Jadwal sudah dibuat...');
+                                res.redirect('/guru/jadwal');
+                            });
+
+                        }).catch(function (err) {
+                            console.log("API call failed, reason ", err);
+                        });
+                    })
+
+
+                });
+            } else {
+                req.flash('error', "Tanggal sudah dipilih oleh guru lain...");
+                res.redirect('/guru/buatjadwal');
+            }
         });
-        res.redirect('/guru/jadwal');
     });
 });
 
+router.post('/getupdatejadwal', function (req, res, next) {
+    koneksi.query("SELECT * FROM jadwal_zoom", function (err, result, fields) {
+        res.send({
+            'result': result
+        })
+    });
+});
+
+router.get('/logout', function (req, res, next) {
+
+    req.session.destroy();
+    res.redirect('/guru');
+
+});
+
+router.get('/getzoom/:id_zoom', function (req, res, next) {
+
+    var id_zoom = req.params.id_zoom;
+
+    if (req.session.loggedin2) {
+
+        koneksi.query("SELECT g.email, jz.*, zm.* FROM jadwal_zoom AS jz INNER JOIN zoom_meetings AS zm ON jz.id_zoom = zm.id_zoom INNER JOIN guru AS g ON jz.id_guru = g.id_gurus WHERE jz.id_zoom = ?", [id_zoom], function (err, result, fields) {
+            if (err) throw err;
+            res.render('guru/beforestart.ejs', {
+                id_guru: req.session.id_guru,
+                nama_guru: req.session.nama_guru,
+                ids: req.session.ids,
+                email: result[0].email,
+                number_meeting: result[0].id_meeting,
+                password: result[0].password,
+                host: "Host"
+            });
+        })
+    } else {
+        req.flash('error', 'Silahkan login terlebih dahulu');
+        res.redirect('/guru');
+    }
 
 
 
+
+})
 
 module.exports = router;

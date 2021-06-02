@@ -2,7 +2,7 @@ var app = require('../app');
 const e = require('express');
 var debug = require('debug')('kelasvirtual-digy:server');
 var http = require('http');
-
+var io = require("socket.io")(http);
 var port = normalizePort(process.env.PORT || "3000");
 app.set('port', port);
 
@@ -54,3 +54,7 @@ function onListening() {
         'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+module.exports = {
+    "io": io
+};

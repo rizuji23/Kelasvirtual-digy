@@ -24,47 +24,19 @@
                         src="../assets/img/icon/schedule-ho.png" class="icon-sidebar" alt=""> Jadwal</a>
                 <a class="list-group-item list-group-item-action bg-light" href="/guru/buatjadwal"><img
                         src="../assets/img/icon/add-ho.png" class="icon-sidebar" alt=""> Buat Jadwal</a>
-                <a class="list-group-item list-group-item-action bg-light" href="zoom.html"><img
-                        src="../assets/img/icon/video-camera-ho.png" class="icon-sidebar" alt=""> Zoom Kelas</a>
+                <a class="list-group-item list-group-item-action bg-light" href="/guru/logout">Logout</a>
             </div>
         </div>
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <img src="../assets/img/icon/swap.png" style="cursor: pointer;" width="25" alt="" id="menu-toggle">
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse " id="navbarNav">
+                <div class=" navbar-collapse " id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tentang">Tentang</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Pendaftaran
+                            <a href="#" class="nav-link mt-2">
+                                Selamat Datang <b><%= nama_guru %></b>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="https://siswa.edulogy.id/">Siswa</a>
-                                <a class="dropdown-item" href="https://guru.edulogy.id/">Guru</a>
-                                <a class="dropdown-item" href="https://sekolah.edulogy.id/">Sekolah</a>
-                                <a class="dropdown-item" href="https://lembaga.edulogy.id/">Lembaga</a>
-                                <a class="dropdown-item" href="https://ujian.edulogy.id/">Ujian</a>
-                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://admission.digyhomeschooling.id/institution/digy">Kelas
-                                Zoom</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"
-                                href="https://admission.digyhomeschooling.id/institution/digy">Pendaftaran</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <img src="../assets/img/user.jpg" class="rounded-circle" width="40" alt="">
@@ -77,6 +49,12 @@
                 <div class="judul2">
                     <h3 class="mt-5">Jadwal Zoom meeting</h3>
                     <p>Pembuatan jadwal Zoom meeting untuk pengajar</p>
+
+                    <% if (messages.success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%- messages.success %>
+                    </div>
+                    <% } %>
                 </div>
 
                 <div class="biodata">
@@ -120,7 +98,7 @@
                                 <div class="content-siswa-o text-center">
                                     <img src="../assets/img/icon/user-u.png" alt="">
                                     <h1 class="mt-2">62</h1>
-                                    <p>Siswa <br> Online</p>
+                                    <p>Jumlah <br> Siswa</p>
                                 </div>
                             </div>
                         </div>
@@ -138,10 +116,7 @@
 
                 <div class="jadwal-kelas mt-5">
                     <h5>List Jadwal Kelas</h5>
-
-
-
-                    <div class="card card-custom">
+                    <div class="card card-custom mb-5">
                         <div class="card-body card-b-custom">
                             <div class="content-jadwal-b">
                                 <div class="row no-gutters" id="jadwalguru">
