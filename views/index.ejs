@@ -23,13 +23,26 @@
 
                     <div class="login-box">
                         <h5>Log-In</h5>
-                        <form action="">
+                        <% if (messages.error) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <%- messages.error %>
+                        </div>
+                        <% } %>
+
+                        <% if (messages.success) { %>
+                        <div class="alert alert-success" role="alert">
+                            <%- messages.success %>
+                        </div>
+                        <% } %>
+                        <form action="/authsiswa" method="POST">
                             <div class="form-login">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Id Number" class="form-control input-login">
+                                    <input type="text" placeholder="ID Number" class="form-control input-login"
+                                        name="id_siswa">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" placeholder="Password" class="form-control input-login">
+                                    <input type="password" name="password" placeholder="Password"
+                                        class="form-control input-login">
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Log-In" class="btn btn-warning btn-login btn-block">

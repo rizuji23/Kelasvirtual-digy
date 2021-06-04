@@ -17,14 +17,14 @@ function websdkready() {
   // ZoomMtg.setZoomJSLib('http://localhost:9999/node_modules/@zoomus/websdk/dist/lib', '/av'); // Local version default, Angular Project change to use cdn version
   ZoomMtg.preLoadWasm(); // pre download wasm file to save time.
 
-  var API_KEY = "h96GnL8YlBwe0htSySrdPpyQS7IMohZNtL7V";
+  var API_KEY = "aOAxMfi-S0qRDti38v-HbQ";
 
   /**
    * NEVER PUT YOUR ACTUAL API SECRET IN CLIENT SIDE CODE, THIS IS JUST FOR QUICK PROTOTYPING
    * The below generateSignature should be done server side as not to expose your api secret in public
    * You can find an eaxmple in here: https://marketplace.zoom.us/docs/sdk/native-sdks/web/essential/signature
    */
-  var API_SECRET = "VvOnZucOZwMM5Q58DLjCtw7SZeic9bGAKfXB";
+  var API_SECRET = "hsD6XgCMETXvW6yQdAK8aindtFeAfNTWv0U9";
 
 
   // some help code, remember mn, pwd, lang to cookie, and autofill.
@@ -66,15 +66,15 @@ function websdkready() {
       );
     });
 
-  document.getElementById("clear_all").addEventListener("click", function (e) {
-    testTool.deleteAllCookies();
-    document.getElementById("display_name").value = "";
-    document.getElementById("meeting_number").value = "";
-    document.getElementById("meeting_pwd").value = "";
-    document.getElementById("meeting_lang").value = "en-US";
-    document.getElementById("meeting_role").value = 0;
-    window.location.href = "/index.html";
-  });
+  // document.getElementById("clear_all").addEventListener("click", function (e) {
+  //   testTool.deleteAllCookies();
+  //   document.getElementById("display_name").value = "";
+  //   document.getElementById("meeting_number").value = "";
+  //   document.getElementById("meeting_pwd").value = "";
+  //   document.getElementById("meeting_lang").value = "en-US";
+  //   document.getElementById("meeting_role").value = 0;
+  //   window.location.href = "/index.html";
+  // });
 
   // click join meeting button
   document
@@ -86,7 +86,6 @@ function websdkready() {
         alert("Meeting number or username is empty");
         return false;
       }
-
 
       testTool.setCookie("meeting_number", meetingConfig.mn);
       testTool.setCookie("meeting_pwd", meetingConfig.pwd);
@@ -100,9 +99,9 @@ function websdkready() {
           console.log(res.result);
           meetingConfig.signature = res.result;
           meetingConfig.apiKey = API_KEY;
-          var joinUrl = "/meeting.html?" + testTool.serialize(meetingConfig);
+          var joinUrl = "/guru/meeting?" + testTool.serialize(meetingConfig);
           console.log(joinUrl);
-          window.open(joinUrl, "_blank");
+          window.open(joinUrl);
         },
       });
     });
@@ -134,7 +133,7 @@ function websdkready() {
         meetingConfig.apiKey = API_KEY;
         var joinUrl =
           testTool.getCurrentDomain() +
-          "/meeting.html?" +
+          "/meeting?" +
           testTool.serialize(meetingConfig);
         document.getElementById('copy_link_value').setAttribute('link', joinUrl);
         copyToClipboard('copy_link_value');

@@ -53,7 +53,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use('/', indexRouter);
-app.use('/siswa', siswaRouter);
 app.use('/guru', guruRouter);
 app.use('/admin', adminRouter);
 

@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="hidden" id="meeting_role" value="<%= host %>" style="width:150px" maxLength="32"
+                        <input type="hidden" id="meeting_role" value="1" style="width:150px" maxLength="32"
                             class="form-control">
                     </div>
                     <div class="form-group">
@@ -100,16 +100,6 @@
     </nav>
 
     <script>
-        document.getElementById('show-test-tool-btn').addEventListener("click", function (e) {
-            var textContent = e.target.textContent;
-            if (textContent === 'Show') {
-                document.getElementById('nav-tool').style.display = 'block';
-                document.getElementById('show-test-tool-btn').textContent = 'Hide';
-            } else {
-                document.getElementById('nav-tool').style.display = 'none';
-                document.getElementById('show-test-tool-btn').textContent = 'Show';
-            }
-        })
     </script>
 
     <script src="https://source.zoom.us/1.9.1/lib/vendor/react.min.js"></script>

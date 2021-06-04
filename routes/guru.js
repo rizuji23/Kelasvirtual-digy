@@ -160,24 +160,26 @@ router.post('/addpertemuan', function (req, res, next) {
         var id_zoom = shortid.generate();
         var id_guru = fields.ids;
         var id_zoom_meeting = shortid.generate();
+        var materi = 'dawd';
+        var thumbnail = 'adaw';
 
-        fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
-            if (err)
-                throw err;
-            console.log('renamed complete');
-        });
+        // fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
+        //     if (err)
+        //         throw err;
+        //     console.log('renamed complete');
+        // });
 
-        fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
-            if (err)
-                throw err;
-            console.log('renamed complete');
-        });
+        // fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
+        //     if (err)
+        //         throw err;
+        //     console.log('renamed complete');
+        // });
 
         koneksi.query("SELECT * FROM jadwal_zoom WHERE tanggal_pertemuan = ?", [tanggal_pertemuan], function (err, result, fields) {
             if (err) throw err;
 
             if (!result.length > 0) {
-                koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, tanggal, tanggal], function (err, result, fields) {
+                koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, thumbnail, materi, tanggal, tanggal], function (err, result, fields) {
                     if (err) throw err;
 
                     koneksi.query("SELECT * FROM guru WHERE id_gurus = ?", [id_guru], function (err, result, fields) {
@@ -185,7 +187,7 @@ router.post('/addpertemuan', function (req, res, next) {
 
                         var options = {
                             method: "POST",
-                            uri: "https://api.zoom.us/v2/users/" + result[0].email + "/meetings",
+                            uri: "https://api.zoom.us/v2/users/" + 'mypcfauzi2@gmail.com' + "/meetings",
                             body: {
                                 topic: judul_pertemuan,
                                 type: 1,
@@ -270,6 +272,10 @@ router.get('/getzoom/:id_zoom', function (req, res, next) {
 
 
 
+});
+
+router.get('/meeting', function (req, res, next) {
+    res.render('guru/meeting.ejs');
 })
 
 module.exports = router;

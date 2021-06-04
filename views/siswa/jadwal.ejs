@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - Siswa | Digyhomeschooling</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png" />
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/simple-calendar.css">
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center"><img src="../assets/img/logo.png" width="120" alt=""></div>
+            <hr class="hr-side">
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action bg-light" href="#!">Pembelajaran</a>
+                <a class="list-group-item list-group-item-action bg-light" href="#!"><img
+                        src="../assets/img/icon/schedule-ho.png" class="icon-sidebar" alt=""> Jadwal</a>
+                <a class="list-group-item list-group-item-action bg-light" href="/guru/buatjadwal"><img
+                        src="../assets/img/icon/add-ho.png" class="icon-sidebar" alt=""> Buat Jadwal</a>
+                <a class="list-group-item list-group-item-action bg-light" href="/guru/logout">Logout</a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <img src="../assets/img/icon/swap.png" style="cursor: pointer;" width="25" alt="" id="menu-toggle">
+                <div class=" navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link mt-2">
+                                Selamat Datang <b><%= nama_siswa %></b>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <img src="../assets/img/user.jpg" class="rounded-circle" width="40" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="judul2">
+                    <h3 class="mt-5">Jadwal Zoom meeting</h3>
+                    <p>Pembuatan jadwal Zoom meeting untuk pengajar</p>
+
+                    <% if (messages.success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%- messages.success %>
+                    </div>
+                    <% } %>
+                </div>
+
+                <div class="biodata">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="img-profile text-center">
+                                        <img src="../assets/img/default.jpg" class="rounded-circle" width="80" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="text-profile mt-1">
+                                        <h5>Selamat Datang <br> <%= nama_siswa %></h5>
+                                        <p id="kelas"><%= jenjang %> <%= kelas %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-sm">
+                        <div class="calendar2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>Pilih Tanggal Pertemuan</span>
+                                </div>
+                                <div class="card-body card-calendar">
+                                    <div id="calendars">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="content-siswa-o text-center">
+                                    <img src="../assets/img/icon/user-u.png" alt="">
+                                    <h1 class="mt-2">62</h1>
+                                    <p>Jumlah <br> Siswa</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div class="content-siswa-o text-center">
+                                    <h1 class="mt-2">5</h1>
+                                    <p>Kelas Sedang <br> Online</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="jadwal-kelas mt-5">
+                    <h5>List Jadwal Kelas</h5>
+                    <div class="card card-custom mb-5">
+                        <div class="card-body card-b-custom">
+                            <div class="content-jadwal-b">
+                                <div class="row no-gutters" id="jadwalguru">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <input type="hidden" id="ids" value="<%= ids %>">
+
+        </div>
+    </div>
+    </div>
+    <!-- Bootstrap core JS-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../assets/js/jquery.simple-calendar.min.js"></script>
+    <script src="../assets/js/siswascript.js"></script>
+</body>
+
+</html>

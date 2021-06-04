@@ -18,17 +18,9 @@ function websdkready() {
           return tmpArgs.name;
         }
       }
-      return (
-        "CDN#" +
-        tmpArgs.version +
-        "#" +
-        testTool.detectOS() +
-        "#" +
-        testTool.getBrowserInfo()
-      );
     })(),
     passWord: tmpArgs.pwd,
-    leaveUrl: "/index.html",
+    leaveUrl: "/guru/jadwal",
     role: parseInt(tmpArgs.role, 10),
     userEmail: (function () {
       try {
