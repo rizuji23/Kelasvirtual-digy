@@ -84,8 +84,11 @@ router.post('/getkelas/:ids', function (req, res, next) {
     });
 })
 
-router.post('/getjadwal', function (req, res, next) {
-    koneksi.query("SELECT * FROM jadwal_zoom ", function (err, result, fields) {
+router.post('/getjadwal/:id_guru', function (req, res, next) {
+
+    var id_guru = req.params.id_guru;
+
+    koneksi.query("SELECT * FROM jadwal_zoom WHERE id_guru = ?", [id_guru], function (err, result, fields) {
         res.send({
             'data_jadwal': result
         });
@@ -160,26 +163,26 @@ router.post('/addpertemuan', function (req, res, next) {
         var id_zoom = shortid.generate();
         var id_guru = fields.ids;
         var id_zoom_meeting = shortid.generate();
-        var materi = 'dawd';
-        var thumbnail = 'adaw';
+        // var materi = 'dawd';
+        // var thumbnail = 'adaw';
 
-        // fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
-        //     if (err)
-        //         throw err;
-        //     console.log('renamed complete');
-        // });
+        fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
+        });
 
-        // fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
-        //     if (err)
-        //         throw err;
-        //     console.log('renamed complete');
-        // });
+        fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
+        });
 
         koneksi.query("SELECT * FROM jadwal_zoom WHERE tanggal_pertemuan = ?", [tanggal_pertemuan], function (err, result, fields) {
             if (err) throw err;
 
             if (!result.length > 0) {
-                koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, thumbnail, materi, tanggal, tanggal], function (err, result, fields) {
+                koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, tanggal, tanggal], function (err, result, fields) {
                     if (err) throw err;
 
                     koneksi.query("SELECT * FROM guru WHERE id_gurus = ?", [id_guru], function (err, result, fields) {
@@ -276,6 +279,16 @@ router.get('/getzoom/:id_zoom', function (req, res, next) {
 
 router.get('/meeting', function (req, res, next) {
     res.render('guru/meeting.ejs');
+});
+
+
+router.post('/getmurid/:id_guru', function (req, res, next) {
+    var id_guru = req.params.id_guru;
+
+    koneksi.query("SELECT * FROM guru INNER JOIN WHERE id_gurus = ?", [id_guru], function (err, result, fields) {
+        if (err) throw err;
+        koneksi.query("SELECT * FROM ")
+    })
 })
 
 module.exports = router;

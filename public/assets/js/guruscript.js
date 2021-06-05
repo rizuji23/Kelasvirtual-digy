@@ -53,11 +53,12 @@ $(document).ready(function () {
 
 
     $.ajax({
-        url: "http://localhost:3000/guru/getjadwal",
+        url: "http://localhost:3000/guru/getjadwal/" + ids,
         method: 'POST',
         dataType: 'json',
         success: function (data) {
             if (data.data_jadwal.length > 0) {
+                $('.empty-jadwal').hide();
                 for (var i = 0; i < data.data_jadwal.length; i++) {
                     var cols = "";
                     var no = 1;
@@ -87,23 +88,16 @@ $(document).ready(function () {
                 </div>`;
                     $("#jadwalguru").append(cols);
                 }
+            } else {
+                $('.empty-jadwal').show();
             }
         }
     });
-});
-
-$("#menu-toggle").click(function (e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
-
-
-$(function () {
 
     var data2 = [];
 
     $.ajax({
-        url: "http://localhost:3000/guru/getjadwal",
+        url: "http://localhost:3000/guru/getjadwal/" + ids,
         method: 'POST',
         dataType: 'json',
         success: function (data) {
@@ -125,7 +119,23 @@ $(function () {
     $('#calendars').simpleCalendar({
         displayEvent: true,
         events: data2
+    });
+
+
+    $.ajax({
+        url: "http://localhost:3000/guru/getmurid/" + ids,
+        method: "POST",
+        dataType: 'json',
+        success: function (data) {
+            $('#jumlahsiswa').text(data);
+        }
     })
+
+});
+
+$("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
 });
 
 $(document).ready(function () {

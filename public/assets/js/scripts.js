@@ -5,16 +5,17 @@ $(document).ready(() => {
         dataType: 'json',
         success: function (data) {
             if (data.result.length > 0) {
+                var no = 1;
                 for (var i = 0; i < data.result.length; i++) {
                     var newRow = $("<tr>");
                     var cols = "";
-                    var no = 1;
                     cols += '<td> ' + no++ + '</td>';
                     cols += '<td> ' + data.result[i].nama + '</td>';
                     cols += '<td> ' + data.result[i].email + '</td>';
                     cols += '<td> ' + data.result[i].id_siswa + '</td>';
                     cols += '<td> ' + data.result[i].no_wa + '</td>';
                     cols += '<td> ' + data.result[i].jenjang + ' ' + data.result[i].kelas + '</td>';
+                    cols += '<td> ' + data.result[i].paket + '</td>';
                     cols += `<td> <a href="/admin/edit/` + data.result[i].id_sis + `" class="btn btn-primary">Edit</a>
                     <a onclick="return confirm('Apakah ingin dihapus?')" href="/admin/hapus/` + data.result[i].id_sis + `" class="btn btn-danger">Hapus</a> </td>`;
                     newRow.append(cols);
@@ -33,10 +34,11 @@ $(document).ready(() => {
         dataType: 'json',
         success: function (data) {
             if (data.result.length > 0) {
+                var no = 1;
                 for (var i = 0; i < data.result.length; i++) {
                     var newRow = $("<tr>");
                     var cols = "";
-                    var no = 1;
+
                     cols += '<td> ' + no++ + '</td>';
                     cols += '<td> ' + data.result[i].nama_admin + '</td>';
                     cols += '<td> ' + data.result[i].username + '</td>';
@@ -59,10 +61,11 @@ $(document).ready(() => {
         dataType: 'json',
         success: function (data) {
             if (data.result.length > 0) {
+                var no = 1;
                 for (var i = 0; i < data.result.length; i++) {
                     var newRow = $("<tr>");
                     var cols = "";
-                    var no = 1;
+
                     cols += '<td> ' + no++ + '</td>';
                     cols += '<td> ' + data.result[i].nama_guru + '</td>';
                     cols += '<td> ' + data.result[i].email + '</td>';
