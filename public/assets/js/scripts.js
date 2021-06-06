@@ -27,6 +27,53 @@ $(document).ready(() => {
         }
     });
 
+    var ids = $('#ids').val();
+
+    $.ajax({
+        url: "http://localhost:3000/admin/getkelas/" + ids,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            if (data.data_kelas.length > 0) {
+                var no = 1;
+                for (var i = 0; i < data.data_kelas.length; i++) {
+                    var newRow = $("<tr>");
+                    var cols = "";
+                    cols += '<td> ' + data.data_kelas[i].jenjang + ' ' + data.data_kelas[i].kelas + '</td>';
+                    cols += `<td> <button type="button" onclick="editkelas('` + data.data_kelas[i].id + `')" class="btn btn-primary btn-edit-kelas">Edit</button>
+                    <a onclick="return confirm('Apakah ingin dihapus?')" href="/admin/hapuskelas/` + data.data_kelas[i].id + `" class="btn btn-danger">Hapus</a> </td>`;
+                    newRow.append(cols);
+                    $("#data_kelas").append(newRow);
+
+                }
+
+            }
+        }
+    })
+
+    $.ajax({
+        url: "http://localhost:3000/admin/getmapel/" + ids,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            if (data.data_mapel.length > 0) {
+                var no = 1;
+                for (var i = 0; i < data.data_mapel.length; i++) {
+                    var newRow = $("<tr>");
+                    var cols = "";
+                    cols += '<td> ' + data.data_mapel[i].mapel + '</td>';
+                    cols += `<td> <button type="button" class="btn btn-primary btn-edit-mapel"onclick="editmapel('` + data.data_mapel[i].id + `')">Edit</button>
+                    <a onclick="return confirm('Apakah ingin dihapus?')" href="/admin/hapus/` + data.data_mapel[i].id_guru + `" class="btn btn-danger">Hapus</a> </td>`;
+                    newRow.append(cols);
+                    $("#data_mapel").append(newRow);
+
+                }
+
+            }
+        }
+    })
+
+
 
     $.ajax({
         url: "http://localhost:3000/admin/fetchadmin",
@@ -210,7 +257,6 @@ function detailguru(ids) {
         method: 'POST',
         dataType: 'json',
         success: function (data) {
-
             if (data.data2.length > 0) {
                 for (var i = 0; i < data.data2.length; i++) {
                     var cols = "";
@@ -225,3 +271,241 @@ function detailguru(ids) {
     $('#detailguru').modal('show');
 
 }
+
+function editkelas(ids) {
+    $('#loading-ajax-e').show();
+    $.ajax({
+        url: "http://localhost:3000/admin/geteditkelas/" + ids,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#loading-ajax-e').hide();
+            var html = `
+            <form method="POST" action="/admin/editkelasprosess">
+            <input type="hidden" name="ids" value="` + data.data_kelas[0].id + `">
+            <input type="hidden" name="id_guru" value="` + data.data_kelas[0].id_guru + `">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Jenjang</label>
+                         <select name="jenjang" class="form-control" id="jenjang" required>
+                            <option value="` + data.data_kelas[0].jenjang + `">` + data.data_kelas[0].jenjang + `</option>
+                                                    <option value="">--- Pilih Jenjang ---</option>
+                                                    <option value="SD">SD</option>
+                                                    <option value="SMP">SMP</option>
+                                                    <option value="SMA (IPA)">SMA (IPA)</option>
+                                                    <option value="SMA (IPS)">SMA (IPS)</option>
+                            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Kelas</label>
+            <select name="kelas" class="form-control" id="kelas" required>
+            <option value="` + data.data_kelas[0].kelas + `">` + data.data_kelas[0].kelas + `</option>
+                                    <option value="">--- Pilih Kelas ---</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn_edit_kelas">Edit</button>
+                </div>
+            </form>
+            `;
+            $('#data_edit_km').html(html);
+            $('#editkm').modal('show');
+        }
+    })
+}
+
+function editmapel(ids) {
+    $('#loading-ajax-e').show();
+    $.ajax({
+        url: "http://localhost:3000/admin/geteditmapel/" + ids,
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#loading-ajax-e').hide();
+            var html = `
+            <form method="POST" action="/admin/editmapelprosess">
+            <input type="hidden" name="ids" value="` + data.data_mapel[0].id + `">
+            <input type="hidden" name="id_guru" value="` + data.data_mapel[0].id_guru + `">
+            <div class="modal-body">
+            <div class="form-group">
+                <label for="">Mata Pelajaran</label>
+                <select name="mapel" class="form-control" id="mapel" required>
+                <option value="` + data.data_mapel[0].mapel + `">` + data.data_mapel[0].mapel + `</option>
+                                <option value="">--- Pilih Mata Pelajaran ---</option>
+                                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                                <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                <option value="Matematika">Matematika</option>
+                                <option value="IPA">IPA</option>
+                                <option value="IPS">IPS</option>
+                                <option value="PKN">PKN</option>
+                                <option value="PAI">PAI</option>
+                                <option value="Fisika">Fisika</option>
+                                <option value="Biologi">Biologi</option>
+                                <option value="Kimia">Kimia</option>
+                                <option value="Sejarah">Sejarah</option>
+                                <option value="Sosiologi">Sosiologi</option>
+                                <option value="Geografi">Geografi</option>
+                                <option value="Ekonomi">Ekonomi</option>
+                            </select>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn_edit_mapel">Edit</button>
+        </div>
+        </form>
+            `;
+            $('#data_edit_km').html(html);
+            $('#editkm').modal('show');
+        }
+    })
+}
+
+$('#tambahkelas').click(function () {
+    $('#loading-ajax-e').hide();
+    var ids = $('#ids').val();
+    var html = `
+    <form method="POST" action="/admin/tambahkelase">
+            <input type="hidden" name="ids" value="` + ids + `">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Jenjang</label>
+                         <select name="jenjang" class="form-control" id="jenjang" required>
+                                                    <option value="">--- Pilih Jenjang ---</option>
+                                                    <option value="SD">SD</option>
+                                                    <option value="SMP">SMP</option>
+                                                    <option value="SMA (IPA)">SMA (IPA)</option>
+                                                    <option value="SMA (IPS)">SMA (IPS)</option>
+                            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Kelas</label>
+            <select name="kelas" class="form-control" id="kelas" required>
+                                    <option value="">--- Pilih Kelas ---</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn_edit_kelas">Tambah</button>
+                </div>
+            </form>
+    `;
+    $('#data_tambah_km').html(html);
+    $('#tambah').modal('show');
+})
+
+$('#tambahmapel').click(function () {
+    $('#loading-ajax-e').hide();
+    var ids = $('#ids').val();
+    var html = `
+    <form method="POST" action="/admin/tambahmapele">
+    <input type="hidden" name="ids" value="` + ids + `">
+    <div class="modal-body">
+    <div class="form-group">
+        <label for="">Mata Pelajaran</label>
+        <select name="mapel" class="form-control" id="mapel" required>
+                        <option value="">--- Pilih Mata Pelajaran ---</option>
+                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                        <option value="Bahasa Inggris">Bahasa Inggris</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="IPA">IPA</option>
+                        <option value="IPS">IPS</option>
+                        <option value="PKN">PKN</option>
+                        <option value="PAI">PAI</option>
+                        <option value="Fisika">Fisika</option>
+                        <option value="Biologi">Biologi</option>
+                        <option value="Kimia">Kimia</option>
+                        <option value="Sejarah">Sejarah</option>
+                        <option value="Sosiologi">Sosiologi</option>
+                        <option value="Geografi">Geografi</option>
+                        <option value="Ekonomi">Ekonomi</option>
+                    </select>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary btn_edit_mapel">Tambah</button>
+</div>
+</form>
+    `;
+    $('#data_tambah_km').html(html);
+    $('#tambah').modal('show');
+})
+
+// $('#data_edit_km').on('click', '.btn_edit_mapel', function () {
+//     var ids = $('.btn_edit_mapel').attr('id');
+
+//     var mapel = $('#data_edit_km').find('#mapel').val();
+
+//     $.ajax({
+//         url: 'http://localhost:3000/admin/editmapelprosess',
+//         method: 'POST',
+//         data: {
+//             'ids': ids,
+//             'mapel': mapel
+//         },
+//         success: function (data) {
+//             if (data) {
+//                 alert('Berhasil diedit...');
+//                 window.location.reload()
+//             } else {
+//                 alert('Gagal diedit...');
+//             }
+//         }
+//     })
+// })
+
+// $('#data_edit_km').on('click', '.btn_edit_kelas', function () {
+//     var ids = $('.btn_edit_mapel').attr('id');
+
+//     var kelas = $('#data_edit_km').find('#kelas');
+//     var jenjang = $('#data_edit_km').find('#jenjang');
+
+//     console.log(kelas)
+
+//     $.ajax({
+//         url: 'http://localhost:3000/admin/editkelasprosess',
+//         method: 'POST',
+//         data: {
+//             'ids': ids,
+//             'kelas': kelas,
+//             'jenjang': jenjang
+//         },
+//         success: function (data) {
+//             // if (data) {
+//             //     alert('Berhasil diedit...');
+//             //     window.location.reload()
+//             // } else {
+//             //     alert('Gagal diedit...');
+//             // }
+//             console.log(data.kelas)
+//         }
+//     })
+// })

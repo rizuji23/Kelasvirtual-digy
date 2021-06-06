@@ -34,6 +34,7 @@ router.get('/jadwal', function (req, res, next) {
                 id_guru: req.session.id_guru,
                 nama_guru: req.session.nama_guru,
                 ids: req.session.ids,
+                dir_image: result[0].dir_image,
             });
         });
 
@@ -88,7 +89,7 @@ router.post('/getjadwal/:id_guru', function (req, res, next) {
 
     var id_guru = req.params.id_guru;
 
-    koneksi.query("SELECT * FROM jadwal_zoom WHERE id_guru = ?", [id_guru], function (err, result, fields) {
+    koneksi.query("SELECT * FROM jadwal_zoom INNER JOIN guru ON jadwal_zoom.id_guru = guru.id_gurus WHERE jadwal_zoom.id_guru = ?", [id_guru], function (err, result, fields) {
         res.send({
             'data_jadwal': result
         });
@@ -163,26 +164,26 @@ router.post('/addpertemuan', function (req, res, next) {
         var id_zoom = shortid.generate();
         var id_guru = fields.ids;
         var id_zoom_meeting = shortid.generate();
-        var materi = 'dawd';
-        var thumbnail = 'adaw';
+        // var materi = 'dawd';
+        // var thumbnail = 'adaw';
 
-        // fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
-        //     if (err)
-        //         throw err;
-        //     console.log('renamed complete');
-        // });
+        fs.rename(files.thumbnail_file.path, './public/assets/img/thumbnail/' + files.thumbnail_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
+        });
 
-        // fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
-        //     if (err)
-        //         throw err;
-        //     console.log('renamed complete');
-        // });
+        fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
+            if (err)
+                throw err;
+            console.log('renamed complete');
+        });
 
         koneksi.query("SELECT * FROM jadwal_zoom WHERE tanggal_pertemuan = ?", [tanggal_pertemuan], function (err, result, fields) {
             if (err) throw err;
 
             if (!result.length > 0) {
-                koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, thumbnail, materi, '1', tanggal, tanggal], function (err, result, fields) {
+                koneksi.query("INSERT INTO jadwal_zoom VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id_zoom, id_guru, nama_guru, kelas, mapel, judul_pertemuan, tanggal_pertemuan, files.thumbnail_file.name, files.materi_file.name, '1', tanggal, tanggal], function (err, result, fields) {
                     if (err) throw err;
 
                     koneksi.query("SELECT * FROM guru WHERE id_gurus = ?", [id_guru], function (err, result, fields) {
@@ -317,5 +318,32 @@ router.post('/getkelasprofile/:id_guru', function (req, res, next) {
 //         koneksi.query("SELECT * FROM ")
 //     })
 // })
+
+router.post('/resetpassword', function (req, res, next) {
+    var ids = req.body.ids;
+    var password_old = req.body.password_old;
+    var password_new = req.body.password_new;
+    var password_repeat = req.body.password_repeat;
+
+    koneksi.query("SELECT (password) FROM guru WHERE id_gurus = ?", [ids], function (err, result, fields) {
+        if (err) throw err;
+        bcrypt.compare(password_old, result[0].password, function (err, result2) {
+            if (err) throw err;
+            if (result2) {
+                if (password_repeat === password_new) {
+                    var new_pass = bcrypt.hashSync(password_new, 10)
+                    koneksi.query("UPDATE guru SET password = ? WHERE id_gurus = ?", [new_pass, ids], function (err, result, fields) {
+                        if (err) throw err;
+                        req.flash('success', "Password sudah diubah...");
+                        res.redirect('/guru/editprofil');
+                    })
+                }
+            } else {
+                req.flash('error', "Password dulu tidak cocok!!");
+                res.redirect('/guru/editprofil');
+            }
+        })
+    })
+})
 
 module.exports = router;

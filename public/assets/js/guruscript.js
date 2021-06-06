@@ -62,12 +62,20 @@ $(document).ready(function () {
                 for (var i = 0; i < data.data_jadwal.length; i++) {
                     var cols = "";
                     var no = 1;
+                    var status;
+                    if (data.data_jadwal[i].status == "0") {
+                        status = `<span class="badge badge-danger">Berakhir</span>`;
+                    } else if (data.data_jadwal[i].status == "1") {
+                        status = `<span class="badge badge-info">Agenda</span>`;
+                    } else if (data.data_jadwal[i].status == "2") {
+                        status = `<span class="badge badge-success">Sedang Berlangsung</span>`;
+                    }
                     cols += `<div class="col">
                     <a href='/guru/getzoom/` + data.data_jadwal[i].id_zoom + `' ><div class="box-jadwal">
                         <img class="card-img-top card-img" src="../assets/img/thumbnail/` + data.data_jadwal[i].thumbnail + `"
                             alt="Img-background">
                         <div class="img-user-fix">
-                            <img class="rounded-circle img-user-s" src="../assets/img/user.jpg"
+                            <img class="rounded-circle img-user-s" src="../assets/img/foto_guru/` + data.data_jadwal[i].dir_image + `"
                                 alt="Img-User">
                         </div>
                         <div class="jadwal-content">
@@ -81,7 +89,7 @@ $(document).ready(function () {
                                 <div class="detail-jadwal">
                                     <h5>` + data.data_jadwal[i].tanggal_pertemuan + `</h5>
                                 </div>
-                                <small>Status </small>
+                                ` + status + `
                             </div>
                         </div>
                     </div></a>

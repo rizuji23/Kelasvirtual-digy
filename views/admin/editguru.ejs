@@ -56,7 +56,8 @@
             <% } %>
             <div class="form-admin">
                 <form action="/admin/editguruprosses" method="POST">
-                    <input type="hidden" value="<%= result[0].id_gurus %>" name="id_gurus" class="form-control">
+                    <input type="hidden" value="<%= result[0].id_gurus %>" name="id_gurus" id="ids"
+                        class="form-control">
                     <div class="form-group">
                         <label for="">Nama Guru</label>
                         <input type="text" value="<%= result[0].nama_guru %>" name="namaguru" class="form-control">
@@ -70,63 +71,88 @@
                         <input type="number" value="<%= result[0].no_wa %>" name="no_wa" class="form-control">
                     </div>
 
-                    <div class="form-group">
-                        <label for="">Kelas</label>
-                        <div class="row">
-                            <div class="col-sm">
-                                <select name="jenjang" class="form-control" id="">
-                                    <option value="<%= result[0].jenjang %>"><%= result[0].jenjang %></option>
-                                    <option value="">--- Pilih Jenjang ---</option>
-                                    <option value="SD">SD</option>
-                                    <option value="SMA">SMA (IPA)</option>
-                                    <option value="SMA">SMA (IPS)</option>
-                                </select>
-                            </div>
-                            <div class="col-sm">
-                                <select name="kelas" class="form-control" id="">
-                                    <option value="<%= result[0].kelas %>"><%= result[0].kelas %></option>
-                                    <option value="">--- Pilih Kelas ---</option>
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                    <option value="1">3</option>
-                                    <option value="1">4</option>
-                                    <option value="1">5</option>
-                                    <option value="1">6</option>
-                                    <option value="1">7</option>
-                                    <option value="1">8</option>
-                                    <option value="1">9</option>
-                                    <option value="1">10</option>
-                                    <option value="1">11</option>
-                                    <option value="1">12</option>
-                                </select>
+                    <div class="card">
+                        <div class="card-header">
+                            Edit Kelas
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Kelas</th>
+                                            <th>Opsi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data_kelas"></tbody>
+
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Mata Pelajaran</label>
-                        <select name="mapel" class="form-control" id="">
-                            <option value="<%= result[0].mapel %>"><%= result[0].mapel %></option>
-                            <option value="">--- Pilih Mata Pelajaran ---</option>
-                            <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                            <option value="Bahasa Inggris">Bahasa Inggris</option>
-                            <option value="Matematika">Matematika</option>
-                            <option value="IPA">IPA</option>
-                            <option value="IPS">IPS</option>
-                            <option value="PKN">PKN</option>
-                            <option value="PAI">PAI</option>
-                            <option value="Fisika">Fisika</option>
-                            <option value="Biologi">Biologi</option>
-                            <option value="Kimia">Kimia</option>
-                            <option value="Sejarah">Sejarah</option>
-                            <option value="Sosiologi">Sosiologi</option>
-                            <option value="Geografi">Geografi</option>
-                            <option value="Ekonomi">Ekonomi</option>
-                        </select>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            Edit Mata Pelajaran
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Mapel</th>
+                                            <th>Opsi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data_mapel"></tbody>
+
+                                </table>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="form-group mt-3">
+                        <input type="button" id="tambahkelas" value="Tambah Kelas" class="btn btn-primary">
+                        <input type="button" id="tambahmapel" value="Tambah Mata Pelajaran" class="btn btn-success">
+                    </div>
+
                     <div class="form-group">
                         <input type="submit" value="Simpan" class="btn btn-warning btn-orange btn-block">
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editkm" tabindex="-1" role="dialog" aria-labelledby="editkmLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editkmLabel">Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="data_edit_km">
+                    <img src="../../assets/img/loading.gif" id="loading-ajax-e" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tambah" tabindex="-1" role="dialog" aria-labelledby="tambahLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahLabel">Tambah</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="data_tambah_km">
+                    <img src="../../assets/img/loading.gif" id="loading-ajax-e" alt="">
+                </div>
             </div>
         </div>
     </div>
