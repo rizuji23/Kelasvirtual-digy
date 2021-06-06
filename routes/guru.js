@@ -89,7 +89,7 @@ router.post('/getjadwal/:id_guru', function (req, res, next) {
 
     var id_guru = req.params.id_guru;
 
-    koneksi.query("SELECT * FROM jadwal_zoom INNER JOIN guru ON jadwal_zoom.id_guru = guru.id_gurus WHERE jadwal_zoom.id_guru = ?", [id_guru], function (err, result, fields) {
+    koneksi.query("SELECT * FROM jadwal_zoom INNER JOIN guru ON jadwal_zoom.id_guru = guru.id_gurus WHERE jadwal_zoom.id_guru = ? ORDER BY jadwal_zoom.id DESC", [id_guru], function (err, result, fields) {
         res.send({
             'data_jadwal': result
         });
@@ -173,7 +173,7 @@ router.post('/addpertemuan', function (req, res, next) {
             console.log('renamed complete');
         });
 
-        fs.rename(files.materi_file.path, './dokumen/materi/' + files.materi_file.name, function (err) {
+        fs.rename(files.materi_file.path, './public/dokumen/materi/' + files.materi_file.name, function (err) {
             if (err)
                 throw err;
             console.log('renamed complete');
@@ -265,7 +265,10 @@ router.get('/getzoom/:id_zoom', function (req, res, next) {
                 email: result[0].email,
                 number_meeting: result[0].id_meeting,
                 password: result[0].password,
-                host: "Host"
+                host: "Host",
+                materi: result[0].materi,
+                id_zoom: id_zoom,
+                start_url: result[0].start_url
             });
         })
     } else {
@@ -278,8 +281,23 @@ router.get('/getzoom/:id_zoom', function (req, res, next) {
 
 });
 
-router.get('/meeting', function (req, res, next) {
-    res.render('guru/meeting.ejs');
+router.get('/meeting/:id_zoom', function (req, res, next) {
+    var id_zoom = req.params.id_zoom;
+    if (req.session.loggedin2) {
+
+        koneksi.query("SELECT g.email, jz.*, zm.* FROM jadwal_zoom AS jz INNER JOIN zoom_meetings AS zm ON jz.id_zoom = zm.id_zoom INNER JOIN guru AS g ON jz.id_guru = g.id_gurus WHERE jz.id_zoom = ?", [id_zoom], function (err, result, fields) {
+            if (err) throw err;
+            res.render('guru/meeting.ejs', {
+                id_guru: req.session.id_guru,
+                nama_guru: req.session.nama_guru,
+                ids: req.session.ids,
+                id_zoom: id_zoom
+            });
+        })
+    } else {
+        req.flash('error', 'Silahkan login terlebih dahulu');
+        res.redirect('/guru');
+    }
 });
 
 router.get('/editprofil', function (req, res, next) {
@@ -310,14 +328,14 @@ router.post('/getkelasprofile/:id_guru', function (req, res, next) {
 
 })
 
-// router.post('/getmurid/:id_guru', function (req, res, next) {
-//     var id_guru = req.params.id_guru;
-
-//     koneksi.query("SELECT * FROM guru INNER JOIN WHERE id_gurus = ?", [id_guru], function (err, result, fields) {
-//         if (err) throw err;
-//         koneksi.query("SELECT * FROM ")
-//     })
-// })
+router.post('/getmurid', function (req, res, next) {
+    koneksi.query("SELECT count(*) AS countsiswa FROM siswa", function (err, result, fields) {
+        if (err) throw err;
+        res.send({
+            'countsiswa': result[0].countsiswa
+        })
+    })
+})
 
 router.post('/resetpassword', function (req, res, next) {
     var ids = req.body.ids;
@@ -345,5 +363,38 @@ router.post('/resetpassword', function (req, res, next) {
         })
     })
 })
+
+router.post('/changestatus/:id_guru/:id_zoom', function (req, res, next) {
+    var id_guru = req.params.id_guru;
+    var id_zoom = req.params.id_zoom;
+    var tanggal = new Date();
+
+    koneksi.query("UPDATE jadwal_zoom SET status = 2, tanggal_update = ? WHERE id_zoom = ? AND id_guru = ?", [tanggal, id_zoom, id_guru], function (err, result, fields) {
+        if (err) throw err;
+        var id_zoom_in = shortid.generate();
+        koneksi.query("INSERT INTO tmp_zoom_in VALUES(NULL, ?, ?, ?, 'IN', '1', ?, ?)", [id_zoom_in, id_zoom, id_guru, tanggal, tanggal], function (err, result, fields) {
+            if (err) throw err;
+            res.send(true);
+        });
+    });
+});
+
+router.post('/changestatus2/:id_guru/:id_zoom/:status', function (req, res, next) {
+    var id_guru = req.params.id_guru;
+    var id_zoom = req.params.id_zoom;
+    var status = req.params.status;
+    var tanggal = new Date();
+
+    if (status == 3) {
+        koneksi.query("UPDATE jadwal_zoom SET status = 0, tanggal_update = ? WHERE id_zoom = ? AND id_guru = ?", [tanggal, id_zoom, id_guru], function (err, result, fields) {
+            if (err) throw err;
+            var id_zoom_in = shortid.generate();
+            koneksi.query("INSERT INTO tmp_zoom_in VALUES(NULL, ?, ?, ?, 'OUT', '0', ?, ?)", [id_zoom_in, id_zoom, id_guru, tanggal, tanggal], function (err, result, fields) {
+                if (err) throw err;
+                res.send(true);
+            });
+        });
+    }
+});
 
 module.exports = router;

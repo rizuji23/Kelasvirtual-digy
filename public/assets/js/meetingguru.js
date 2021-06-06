@@ -3,6 +3,9 @@ window.addEventListener('DOMContentLoaded', function (event) {
   websdkready();
 });
 
+var ids = $('#ids').val();
+var id_zoom = $('#id_zoom').val();
+
 function websdkready() {
   var testTool = window.testTool;
   // get meeting args from url
@@ -74,12 +77,12 @@ function websdkready() {
             });
           },
           error: function (res) {
-            console.log(res);
+            console.log('res1' + res);
           },
         });
       },
       error: function (res) {
-        console.log(res);
+        console.log('res2' + res);
       },
     });
 
@@ -89,6 +92,18 @@ function websdkready() {
 
     ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
       console.log('inMeetingServiceListener onUserLeave', data);
+      $.ajax({
+        url: 'http://localhost:3000/guru/changestatus2/' + ids + '/' + id_zoom + '/' + '3',
+        method: 'POST',
+        success: function (data) {
+          if (data) {
+
+          } else {
+            alert('Error zoom status!!');
+          }
+
+        }
+      })
     });
 
     ZoomMtg.inMeetingServiceListener('onUserIsInWaitingRoom', function (data) {
@@ -96,7 +111,19 @@ function websdkready() {
     });
 
     ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
-      console.log('inMeetingServiceListener onMeetingStatus', data);
+      console.log('inMeetingServiceListener onMeetingStatus', data.meetingStatus);
+      $.ajax({
+        url: 'http://localhost:3000/guru/changestatus2/' + ids + '/' + id_zoom + '/' + data.meetingStatus,
+        method: 'POST',
+        success: function (data) {
+          if (data) {
+
+          } else {
+            alert('Error zoom status!!');
+          }
+
+        }
+      })
     });
   }
 

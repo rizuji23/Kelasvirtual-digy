@@ -11,15 +11,21 @@
 </head>
 
 <body>
+
+    <input type="hidden" id="id_zoom" value="<%= id_zoom %>">
+    <input type="hidden" id="ids" value="<%= ids %>">
+
     <script src="https://source.zoom.us/1.9.1/lib/vendor/react.min.js"></script>
     <script src="https://source.zoom.us/1.9.1/lib/vendor/react-dom.min.js"></script>
     <script src="https://source.zoom.us/1.9.1/lib/vendor/redux.min.js"></script>
     <script src="https://source.zoom.us/1.9.1/lib/vendor/redux-thunk.min.js"></script>
     <script src="https://source.zoom.us/1.9.1/lib/vendor/lodash.min.js"></script>
     <script src="https://source.zoom.us/zoom-meeting-1.9.1.min.js"></script>
-    <script src="../assets/js/tool.js"></script>
-    <script src="../assets/js/vconsole.min.js"></script>
-    <script src="../assets/js/meetingguru.js"></script>
+    <script src="../../assets/js/tool.js"></script>
+    <script src="../../assets/js/vconsole.min.js"></script>
+
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/meetingguru.js"></script>
 
     <script>
         const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3,

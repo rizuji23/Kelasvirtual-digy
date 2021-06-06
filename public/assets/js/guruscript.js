@@ -63,15 +63,22 @@ $(document).ready(function () {
                     var cols = "";
                     var no = 1;
                     var status;
+                    var a;
                     if (data.data_jadwal[i].status == "0") {
                         status = `<span class="badge badge-danger">Berakhir</span>`;
+                        a = `#`;
                     } else if (data.data_jadwal[i].status == "1") {
                         status = `<span class="badge badge-info">Agenda</span>`;
+                        a = `/guru/getzoom/` + data.data_jadwal[i].id_zoom + ``;
                     } else if (data.data_jadwal[i].status == "2") {
                         status = `<span class="badge badge-success">Sedang Berlangsung</span>`;
+                        a = `/guru/getzoom/` + data.data_jadwal[i].id_zoom + ``;
+                    } else {
+                        status = `<span class="badge badge-danger">Error</span>`;
+                        a = `#`;
                     }
                     cols += `<div class="col">
-                    <a href='/guru/getzoom/` + data.data_jadwal[i].id_zoom + `' ><div class="box-jadwal">
+                    <a href='` + a + `' ><div class="box-jadwal">
                         <img class="card-img-top card-img" src="../assets/img/thumbnail/` + data.data_jadwal[i].thumbnail + `"
                             alt="Img-background">
                         <div class="img-user-fix">
@@ -147,14 +154,14 @@ $(document).ready(function () {
     });
 
 
-    // $.ajax({
-    //     url: "http://localhost:3000/guru/getmurid/" + ids,
-    //     method: "POST",
-    //     dataType: 'json',
-    //     success: function (data) {
-    //         $('#jumlahsiswa').text(data);
-    //     }
-    // })
+    $.ajax({
+        url: "http://localhost:3000/guru/getmurid",
+        method: "POST",
+        dataType: 'json',
+        success: function (data) {
+            $('#jumlahsiswa').text(data.countsiswa);
+        }
+    })
 
 });
 
