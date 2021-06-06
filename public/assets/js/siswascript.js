@@ -4,7 +4,7 @@ $(document).ready(function () {
     var kelas = $('#kelas').text();
 
     $.ajax({
-        url: "http://10.10.22.235:3000/getjadwal/" + kelas,
+        url: "http://localhost:3000/getjadwal/" + kelas,
         method: 'POST',
         dataType: 'json',
         success: function (data) {

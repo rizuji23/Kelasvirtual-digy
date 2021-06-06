@@ -775,6 +775,98 @@ body {
     display: none;
 }
 
+/* editprofil */
+.judul h3 {
+    font-family: 'Monserrat Bold';
+    font-size: 36px !important;
+    color: #636363 !important;
+}
+
+.btn-upd {
+    color: white !important;
+    background-color: #F69014 !important;
+    font-family: 'Monserrat Bold';
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    border: 1px solid #e08412 !important;
+}
+
+.btn-save {
+    color: white !important;
+    background-color: #F69014 !important;
+    font-family: 'Monserrat Bold';
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    border: 1px solid #e08412 !important;
+}
+
+.btn-upd,
+.btn-save,
+.lupa {
+    transition: 0.7s !important;
+}
+
+.btn-upd:hover,
+.btn-save:hover {
+    background-color: white !important;
+    color: #F69014 !important;
+}
+
+.card-header span {
+    font-family: 'Monserrat Bold';
+    font-size: 20px !important;
+    color: #636363 !important;
+}
+
+.form-edit p,
+.lupa {
+    font-family: 'Monserrat Bold';
+    color: #636363 !important;
+    font-size: 13px !important;
+}
+
+.form-edit label {
+    font-family: 'Monserrat Bold';
+    color: #636363 !important;
+    font-size: 13px !important;
+}
+
+.lupa:hover {
+    color: #F69014 !important;
+    text-decoration: none;
+}
+
+.input-edit {
+    border-radius: 10px !important;
+    font-family: 'Monserrat Regular';
+    color: #636363 !important;
+    font-size: 15px !important;
+}
+
+.input-edit:focus {
+    box-shadow: inset 0 -1px 0 #ddd !important;
+    border: 1px solid #F69014 !important;
+}
+
+.upd-b {
+    margin-left: 50px;
+    margin-top: 35px;
+}
+
+.btn-upd {
+    color: white !important;
+    background-color: #F69014 !important;
+    font-family: 'Monserrat Bold';
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    border: 1px solid #e08412 !important;
+    padding: 7px 50px 7px 50px !important;
+}
+
+.picture-profile {
+    display: none;
+}
+
 @media screen and (max-width: 425px) {
     .container {
         padding-left: 30px;

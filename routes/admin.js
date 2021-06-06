@@ -324,12 +324,12 @@ router.post('/addguru', function (req, res, next) {
         var tanggal = new Date();
         var id_gurus = shortid.generate();
 
-        fs.rename(files.foto_guru.path, './public/assets/img/foto_guru/' + files.foto_guru.name, function (err) {
-            if (err) throw err;
-            console.log('renamed complate');
-        });
+        // fs.rename(files.foto_guru.path, './public/assets/img/foto_guru/' + files.foto_guru.name, function (err) {
+        //     if (err) throw err;
+        //     console.log('renamed complate');
+        // });
 
-        koneksi.query("INSERT INTO guru (id_gurus, nama_guru, email, password, no_wa, dir_image, tanggal, tanggal_update) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [id_gurus, namaguru, email, password, no_wa, files.foto_guru.name, tanggal, tanggal], function (err, result, fields) {
+        koneksi.query("INSERT INTO guru (id_gurus, nama_guru, email, password, no_wa, dir_image, tanggal, tanggal_update) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [id_gurus, namaguru, email, password, no_wa, 'dawd', tanggal, tanggal], function (err, result, fields) {
             if (err) throw err;
 
             koneksi.query("SELECT max(id) as maxid FROM guru", function (err, result, fields) {

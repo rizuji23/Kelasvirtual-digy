@@ -94,6 +94,23 @@ $(document).ready(function () {
         }
     });
 
+
+    $.ajax({
+        url: "http://localhost:3000/guru/getkelasprofile/" + ids,
+        method: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            if (data.data_kelas_f.length > 0) {
+                for (var i = 0; i < data.data_kelas_f.length; i++) {
+                    var cols = "";
+                    var no = 1;
+                    cols += `<p for="" class="mt-2 ml-5">` + data.data_kelas_f[i].jenjang + ` ` + data.data_kelas_f[0].kelas + `</p>`;
+                    $("#kelas_profile").append(cols);
+                }
+            }
+        }
+    });
+
     var data2 = [];
 
     $.ajax({
@@ -122,14 +139,14 @@ $(document).ready(function () {
     });
 
 
-    $.ajax({
-        url: "http://localhost:3000/guru/getmurid/" + ids,
-        method: "POST",
-        dataType: 'json',
-        success: function (data) {
-            $('#jumlahsiswa').text(data);
-        }
-    })
+    // $.ajax({
+    //     url: "http://localhost:3000/guru/getmurid/" + ids,
+    //     method: "POST",
+    //     dataType: 'json',
+    //     success: function (data) {
+    //         $('#jumlahsiswa').text(data);
+    //     }
+    // })
 
 });
 
