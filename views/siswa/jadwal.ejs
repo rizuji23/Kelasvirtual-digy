@@ -22,9 +22,7 @@
                 <a class="list-group-item list-group-item-action bg-light" href="#!">Pembelajaran</a>
                 <a class="list-group-item list-group-item-action bg-light" href="#!"><img
                         src="../assets/img/icon/schedule-ho.png" class="icon-sidebar" alt=""> Jadwal</a>
-                <a class="list-group-item list-group-item-action bg-light" href="/guru/buatjadwal"><img
-                        src="../assets/img/icon/add-ho.png" class="icon-sidebar" alt=""> Buat Jadwal</a>
-                <a class="list-group-item list-group-item-action bg-light" href="/guru/logout">Logout</a>
+                <a class="list-group-item list-group-item-action bg-light" href="/logout">Logout</a>
             </div>
         </div>
         <div id="page-content-wrapper">
@@ -39,7 +37,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <img src="../assets/img/user.jpg" class="rounded-circle" width="40" alt="">
+                                <img src="../assets/img/foto_siswa/<%= dir_image %>" class="rounded-circle" width="40"
+                                    alt="">
                             </a>
                         </li>
                     </ul>
@@ -63,13 +62,24 @@
                             <div class="row">
                                 <div class="col-sm-2">
                                     <div class="img-profile text-center">
-                                        <img src="../assets/img/default.jpg" class="rounded-circle" width="80" alt="">
+                                        <img src="../assets/img/foto_siswa/<%= dir_image %>" class="rounded-circle"
+                                            width="80" alt="">
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    <div class="text-profile mt-1">
-                                        <h5>Selamat Datang <br> <%= nama_siswa %></h5>
-                                        <p id="kelas"><%= jenjang %> <%= kelas %></p>
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="text-profile mt-1">
+                                                <h5>Selamat Datang <br> <%= nama_siswa %></h5>
+                                                <p id="kelas"><%= jenjang %> <%= kelas %></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <div class="col-sm">
+                                                <a href="/editprofil" class="btn btn-upd float-right">Edit
+                                                    Profile</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -88,25 +98,6 @@
                                     <div id="calendars">
 
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="content-siswa-o text-center">
-                                    <img src="../assets/img/icon/user-u.png" alt="">
-                                    <h1 class="mt-2">62</h1>
-                                    <p>Jumlah <br> Siswa</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <div class="content-siswa-o text-center">
-                                    <h1 class="mt-2">5</h1>
-                                    <p>Kelas Sedang <br> Online</p>
                                 </div>
                             </div>
                         </div>

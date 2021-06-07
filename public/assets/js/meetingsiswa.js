@@ -2,6 +2,8 @@ window.addEventListener('DOMContentLoaded', function (event) {
   console.log('DOM fully loaded and parsed');
   websdkready();
 });
+var ids = $('#ids').val();
+var id_zoom = $('#id_zoom').val();
 
 function websdkready() {
   var testTool = window.testTool;
@@ -97,6 +99,7 @@ function websdkready() {
 
     ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
       console.log('inMeetingServiceListener onMeetingStatus', data);
+
     });
   }
 

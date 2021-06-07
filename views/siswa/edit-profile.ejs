@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digyhomeschooling – Karakter, Kreatif, Inovasi Digital</title>
+    <link rel="shortcut icon" href="../../assets/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../assets/css/aos.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/"><img src="../../assets/img/logo.png" class="logo-navbar" alt=""></a>
+            <div class=" navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/guru/jadwal" class="nav-link mt-2">
+                            Kembali Ke Jadwal
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <img src="assets/img/foto_siswa/<%= dir_image %>" class="rounded-circle" width="40" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="judul">
+            <h3 class="mt-5" data-aos="fade-up" data-aos-duration="900"><%= nama_siswa %> - Edit Profile</h3>
+        </div>
+        <% if (messages.success) { %>
+        <div class="alert alert-success" role="alert">
+            <%- messages.success %>
+        </div>
+        <% } %>
+        <% if (messages.error) { %>
+        <div class="alert alert-danger" role="alert">
+            <%- messages.error %>
+        </div>
+        <% } %>
+        <div class="mt-3 d-flex">
+            <img src="assets/img/foto_siswa/<%= dir_image %>" class="rounded-circle" width="100" alt=""
+                data-aos="zoom-in" data-aos-duration="900">
+            <div class="upd-b" data-aos="fade-up" data-aos-duration="1000">
+                <form action="/uploadfoto" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" id="ids" name="ids" value="<%= ids %>">
+                    <label for="picture_profile">
+                        <div class="btn btn-upd mt-1"><span class="text-img">Upload New Picture</span></div>
+                        <input type="file" class="picture-profile" name="fileimg" id="picture_profile" required>
+                    </label>
+                    <input type="submit" class="btn btn-upd mt-1" value="Upload">
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <form action="/resetpassword" method="POST">
+                <div class="">
+                    <div class="card" data-aos="fade-up" data-aos-duration="1100">
+                        <div class="card-header bg-white">
+                            <span class="ml-3">Data Diri</span>
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" id="ids" name="ids" value="<%= ids %>">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group form-edit">
+                                        <label for="" class="ml-3">Nama :</label>
+                                        <input type="text" value="<%= nama_siswa %>" disabled
+                                            class="form-control input-edit ml-3">
+                                    </div>
+                                    <div class="form-group form-edit">
+                                        <label for="" class="ml-3">Password Dulu :</label>
+                                        <input type="password" name="password_old" class="form-control input-edit ml-3">
+                                    </div>
+                                    <div class="form-group form-edit">
+                                        <label for="" class="ml-3">Password Baru :</label>
+                                        <input type="password" name="password_new" class="form-control input-edit ml-3">
+                                    </div>
+                                    <div class="form-group form-edit mb-0">
+                                        <label for="" class="ml-3">Ketik Ulang Password :</label>
+                                        <input type="password" name="password_repeat"
+                                            class="form-control input-edit ml-3">
+                                    </div>
+                                    <div class="form-group form-edit">
+                                        <label for="" class="ml-3 mt-1"><span style="color: #f84a4a;">*</span>Password
+                                            Harus Sesuai</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group form-edit">
+                                        <label for="" class="ml-5">Kelas :</label>
+                                        <br>
+                                        <div id="kelas_profile">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="text-right my-3" data-aos="fade-up" data-aos-duration="900" data-aos-offset="0">
+                        <a href="#" class="lupa">Lupa Password ?</a>
+                    </div>
+                    <div class="mb-5" data-aos="fade-up" data-aos-duration="1100" data-aos-offset="0">
+                        <button class="btn btn-save px-5">Save Profil</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/scripts.js"></script>
+    <script src="../../assets/js/siswascript.js"></script>
+</body>
+
+</html>

@@ -93,21 +93,16 @@
             <div id="navbar" class="websdktest" style="margin-top: 100px;">
                 <form class="navbar-form" id="meeting_form">
                     <div class="form-group">
-                        <label for="">Nama Guru</label><br>
-                        <input type="text" name="display_name" id="display_name" value="<%= nama_guru %>" disabled
+                        <label for="">Nama Kamu</label><br>
+                        <input type="text" name="display_name" id="display_name" value="<%= nama_siswa %>" disabled
                             maxLength="100" placeholder="Name" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Meeting Number</label><br>
-                        <input type="text" name="meeting_number" id="meeting_number" value="<%= number_meeting %>"
-                            disabled maxLength="200" style="width:150px" placeholder="Meeting Number"
-                            class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Meeting Password</label><br>
-                        <input type="text" name="meeting_pwd" id="meeting_pwd" value="<%= password %>" disabled
-                            style="width:150px" maxLength="32" placeholder="Meeting Password" class="form-control">
-                    </div>
+                    <input type="hidden" name="meeting_number" id="meeting_number" value="<%= number_meeting %>"
+                        disabled maxLength="200" style="width:150px" placeholder="Meeting Number" class="form-control"
+                        required>
+
+                    <input type="hidden" name="meeting_pwd" id="meeting_pwd" value="<%= password %>" disabled
+                        style="width:150px" maxLength="32" placeholder="Meeting Password" class="form-control">
 
                     <input type="hidden" name="meeting_email" id="meeting_email" value="<%= email %>"
                         style="width:150px" maxLength="32" placeholder="Email option" class="form-control">
@@ -121,19 +116,33 @@
                     <input type="hidden" id="meeting_lang" value="en-US" style="width:150px" maxLength="32"
                         class="form-control">
 
+                    <input type="hidden" id="ids" value="<%= ids %>" style="width:150px" maxLength="32"
+                        class="form-control">
+                    <input type="hidden" id="id_zoom" value="<%= id_zoom %>" style="width:150px" maxLength="32"
+                        class="form-control">
+
                     <input type="hidden" value="" id="copy_link_value" />
-                    <button type="submit" class="btn btn-primary" id="join_meeting">Join</button>
+                    <button type="submit" class="btn btn-warning" id="join_meeting">Join</button>
+                    <div class="download-materi">
+                        <p>Download Materi sebelum masuk join</p>
+                        <div class="mt-2">
+                            <a href="http://localhost:3000/dokumen/materi/<%= materi %>" download=""
+                                class="btn btn-info d-block">Download
+                                Materi</a>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <a href="<%= start_url %>" target="_blank" class="btn btn-primary d-block">Klik untuk
+                                pengguna
+                                Android/IOS atau browser tidak support.</a>
+                        </div>
+
+                        <button type="button" id="db">dawdwd</button>
+                    </div>
                 </form>
 
             </div>
-            <div class="download-materi">
-                <p>Download Materi sebelum masuk join</p>
-                <div class="mt-2">
-                    <a href="http://localhost:3000/dokumen/materi/<%= materi %>" download=""
-                        class="btn btn-info d-block">Download
-                        Materi</a>
-                </div>
-            </div>
+
             <!--/.navbar-collapse -->
         </div>
     </nav>
@@ -149,11 +158,25 @@
     <script src="https://source.zoom.us/zoom-meeting-1.9.1.min.js"></script>
     <script src="../../assets/js/tool.js"></script>
     <script src="../../assets/js/vconsole.min.js"></script>
-    <script src="../../assets/js/indexguru.js"></script>
+    <script src="../../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/indexsiswa.js"></script>
 
     <script>
-
-
+        $('#db').click(function () {
+            var ids = $('#ids').val();
+            var id_zoom = $('#id_zoom').val();
+            $.ajax({
+                url: 'http://localhost:3000/add_data/' + ids + '/' + id_zoom,
+                method: 'POST',
+                success: function (data) {
+                    if (data) {
+                        console.log('success')
+                    } else {
+                        alert('Error zoom status!!');
+                    }
+                }
+            })
+        })
     </script>
 </body>
 

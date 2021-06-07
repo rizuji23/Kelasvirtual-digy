@@ -146,8 +146,6 @@ $(document).ready(function () {
         }
     });
 
-    console.log(data2)
-
     $('#calendars').simpleCalendar({
         displayEvent: true,
         events: data2
@@ -163,6 +161,16 @@ $(document).ready(function () {
         }
     })
 
+
+    $.ajax({
+        url: "http://localhost:3000/guru/getclassonline",
+        method: "POST",
+        dataType: 'json',
+        success: function (data) {
+            $('#onlines').text(data.countclass);
+        }
+    })
+
 });
 
 $("#menu-toggle").click(function (e) {
@@ -171,8 +179,7 @@ $("#menu-toggle").click(function (e) {
 });
 
 $(document).ready(function () {
-    var datesForDisable = ["2021-05-14", "2021-05-15", "2021-05-16"]
-    var hoursdisable = ["9", "10", "11"];
+
     $(function () {
         $('#datepicker').datetimepicker({
             disabledDates: datesForDisable,

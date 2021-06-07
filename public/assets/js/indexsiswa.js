@@ -96,12 +96,23 @@ function websdkready() {
         apiSecret: API_SECRET,
         role: meetingConfig.role,
         success: function (res) {
-          console.log(res.result);
-          meetingConfig.signature = res.result;
-          meetingConfig.apiKey = API_KEY;
-          var joinUrl = "/meeting?" + testTool.serialize(meetingConfig);
-          console.log(joinUrl);
-          window.open(joinUrl);
+          $.ajax({
+            url: 'http://localhost:3000/add_data/' + ids + '/' + id_zoom,
+            method: 'POST',
+            success: function (data) {
+              if (data) {
+                console.log(res.result);
+                meetingConfig.signature = res.result;
+                meetingConfig.apiKey = API_KEY;
+                var joinUrl = "/meeting?" + testTool.serialize(meetingConfig);
+                console.log(joinUrl);
+                window.open(joinUrl);
+              } else {
+                alert('Error zoom status!!');
+              }
+            }
+          })
+
         },
       });
     });
@@ -114,6 +125,9 @@ function websdkready() {
     document.execCommand("copy");
     document.body.removeChild(aux);
   }
+
+  var ids = $('#ids').val();
+  var id_zoom = $('#id_zoom').val();
 
   // click copy jon link button
   window.copyJoinLink = function (element) {
@@ -128,15 +142,22 @@ function websdkready() {
       apiSecret: API_SECRET,
       role: meetingConfig.role,
       success: function (res) {
-        console.log(res.result);
-        meetingConfig.signature = res.result;
-        meetingConfig.apiKey = API_KEY;
-        var joinUrl =
-          testTool.getCurrentDomain() +
-          "/meeting?" +
-          testTool.serialize(meetingConfig);
-        document.getElementById('copy_link_value').setAttribute('link', joinUrl);
-        copyToClipboard('copy_link_value');
+        $.ajax({
+          url: 'http://localhost:3000/add_data/' + ids + '/' + id_zoom,
+          method: 'POST',
+          success: function (data) {
+            if (data) {
+              console.log(res.result);
+              meetingConfig.signature = res.result;
+              meetingConfig.apiKey = API_KEY;
+              var joinUrl = "/meeting/" + "?" + testTool.serialize(meetingConfig);
+              console.log(joinUrl);
+              window.open(joinUrl);
+            } else {
+              alert('Error zoom status!!');
+            }
+          }
+        })
 
       },
     });

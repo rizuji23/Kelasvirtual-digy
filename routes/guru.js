@@ -397,4 +397,13 @@ router.post('/changestatus2/:id_guru/:id_zoom/:status', function (req, res, next
     }
 });
 
+router.post('/getclassonline', function (req, res, next) {
+    koneksi.query("SELECT count(*) AS countclass FROM jadwal_zoom WHERE status = '2'", function (err, result, fields) {
+        if (err) throw err;
+        res.send({
+            'countclass': result[0].countclass
+        })
+    })
+})
+
 module.exports = router;
